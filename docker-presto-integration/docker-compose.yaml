@@ -1,22 +1,19 @@
----
-version: '2'
+version: '3.9'
+
 services:
   presto:
     image: prestodb/presto:latest
     container_name: presto
     volumes:
-      - ./config/catalog/mongodb.properties:/opt/presto-server/etc/catalog/mongodb.properties
-      - ./config/catalog/mysql.properties:/opt/presto-server/etc/catalog/mysql.properties
-      - ./config/catalog/postgresql.properties:/opt/presto-server/etc/catalog/postgresql.properties
-      - ./config/catalog/cassandra.properties:/opt/presto-server/etc/catalog/cassandra.properties
-      - ./config/catalog/tpcds.properties:/opt/presto-server/etc/catalog/tpcds.properties
-    depends_on:
-      - mongodb
-      - mysql
+      - ./config/catalog:/opt/presto-server/etc/catalog
     ports:
       - "8080:8080"
     networks:
-      - presto-nw
+      - overnet
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == snf-77266
 
   mongodb:
     image: mongo:6.0.4
@@ -26,50 +23,51 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - presto-nw
-  
-  mysql:
-    image: mysql
-    container_name: presto-mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: 'presto'
-      MYSQL_USER: 'presto'
-      MYSQL_PASSWORD: 'presto'
-    ports:
-      - "3306:3306"
-    networks:
-      - presto-nw  
-  
+      - overnet
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == snf-77266
   postgresql:
     image: postgres
     container_name: presto-postgresql
-    environment:  
+    environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: presto
       POSTGRES_DB: presto
     ports:
       - "5432:5432"
     networks:
-      - presto-nw 
+      - overnet
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == snf-77284
 
   cassandra:
     image: cassandra:latest
     container_name: presto-cassandra
     environment:
-      - CASSANDRA_USER=admin
-      - CASSANDRA_PASSWORD=admin
+      CASSANDRA_USER: admin
+      CASSANDRA_PASSWORD: admin
     volumes:
-      - cassandra-data:/var/lib/cassandra
+      - cassandra-data:/var/lib/docker/cassandra
     ports:
       - "9042:9042"
     networks:
-      - presto-nw
+      - overnet
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == snf-77267
 
 networks:
-  presto-nw:
-    driver: bridge
+  overnet:
+    external: true
 
 volumes:
   mongoData:
   cassandra-data:
-  
+  postgresql-data:
