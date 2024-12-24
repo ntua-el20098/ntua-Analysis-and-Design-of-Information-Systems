@@ -1,1 +1,1 @@
-# ntua-Analysis-and-Design-of-Information-Systems
+# ntua-ADIS
