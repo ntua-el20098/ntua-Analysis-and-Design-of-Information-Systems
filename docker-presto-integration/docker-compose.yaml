@@ -3,13 +3,12 @@ version: '3.9'
 services:
   presto:
     image: prestodb/presto:latest
-    #container_name: presto
+    container_name: presto
     volumes:
       - ./config/catalog:/opt/presto-server/etc/catalog
       - ./coordinator:/opt/benchmark-driver
-        #- ./results:/opt/results
-      - ./Queries:/opt/queries
-        #- ./coordinator/jvm.config:/opt/presto-server/etc/jvm.config
+      - ./Queries:/opt/benchmark-driver/sql
+      - ./config/jvm.config:/opt/presto-server/etc/jvm.config
     ports:
       - "8080:8080"
     networks:
@@ -18,7 +17,7 @@ services:
       placement:
         constraints:
           - node.hostname == snf-77266
-    command: ["/bin/sh", "-c", "chmod +x /opt/benchmark-driver/presto-benchmark-driver.jar && java -jar /opt/benchmark-driver/presto-benchmark-driver.jar --suite /opt/benchmark-driver/suite.json --output /opt/results.json"]
+    command: ["/bin/bash", "-c", "chmod +x /opt/benchmark-driver/presto-benchmark-driver.jar && java -jar /opt/benchmark-driver/presto-benchmark-driver.jar --suite /opt/benchmark-driver/suite.json --output /opt/results.json"]
   mongodb:
     image: mongo:6.0.4
     container_name: presto-mongo
