@@ -18,8 +18,7 @@ services:
       placement:
         constraints:
           - node.hostname == snf-77266
-    command: ["/bin/sh", "-c", "chmod +x /opt/benchmark-driver/presto-benchmark-driver.jar && java -jar /opt/benchmark-driver/presto-benchmark-driver.jar"]
-
+    command: ["/bin/sh", "-c", "chmod +x /opt/benchmark-driver/presto-benchmark-driver.jar && java -jar /opt/benchmark-driver/presto-benchmark-driver.jar --suite /opt/benchmark-driver/suite.json --output /opt/results.json"]
   mongodb:
     image: mongo:6.0.4
     container_name: presto-mongo
