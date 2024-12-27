@@ -3,7 +3,7 @@ version: '3.9'
 services:
   presto:
     image: prestodb/presto:latest
-    container_name: presto
+    #container_name: presto
     volumes:
       - ./config/catalog:/opt/presto-server/etc/catalog
       - ./coordinator:/opt/benchmark-driver
