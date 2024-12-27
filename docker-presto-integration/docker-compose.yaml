@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 version: '2'
 services:
@@ -60,3 +61,78 @@ volumes:
   mongoData:
   cassandra-data:
   
+=======
+version: '3.9'
+
+services:
+  presto:
+    image: prestodb/presto:latest
+    container_name: presto
+    volumes:
+      - ./config/catalog:/opt/presto-server/etc/catalog
+    ports:
+      - "8080:8080"
+    networks:
+      - overnet
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == snf-77266
+
+  mongodb:
+    image: mongo:6.0.4
+    container_name: presto-mongo
+    volumes:
+      - mongoData:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - overnet
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == snf-77266
+  postgresql:
+    image: postgres
+    container_name: presto-postgresql
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: presto
+      POSTGRES_DB: presto
+    ports:
+      - "5432:5432"
+    networks:
+      - overnet
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == snf-77284
+
+  cassandra:
+    image: cassandra:latest
+    container_name: presto-cassandra
+    environment:
+      CASSANDRA_USER: admin
+      CASSANDRA_PASSWORD: admin
+    volumes:
+      - cassandra-data:/var/lib/docker/cassandra
+    ports:
+      - "9042:9042"
+    networks:
+      - overnet
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == snf-77267
+
+networks:
+  overnet:
+    external: true
+
+volumes:
+  mongoData:
+  cassandra-data:
+  postgresql-data:
+>>>>>>> 8524244ef8eb69afa91b144ba497a30327a9cc77

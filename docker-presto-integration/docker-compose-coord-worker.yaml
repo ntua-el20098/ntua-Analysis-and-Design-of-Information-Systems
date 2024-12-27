@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 version: '2'
 
@@ -102,4 +103,107 @@ networks:
 volumes:
   mongoData:
   cassandra-data:
+=======
+---
+version: '2'
+
+services:
+  coordinator:
+    image: prestodb/presto:latest
+    container_name: coordinator
+    volumes:
+      - ./coordinator/config.properties:/opt/presto-server/etc/config.properties
+      - ./coordinator/node.properties:/opt/presto-server/etc/node.properties
+      - ./config/catalog/mongodb.properties:/opt/presto-server/etc/catalog/mongodb.properties
+      - ./config/catalog/postgresql.properties:/opt/presto-server/etc/catalog/postgresql.properties
+      - ./config/catalog/cassandra.properties:/opt/presto-server/etc/catalog/cassandra.properties
+      - ./config/catalog/tpcds.properties:/opt/presto-server/etc/catalog/tpcds.properties
+    depends_on:
+      - mongodb
+      - postgresql
+      - cassandra
+    ports:
+      - "8080:8080"
+    networks:
+      - presto-nw
+
+  worker_1:
+    image: prestodb/presto:latest
+    container_name: worker_1
+    volumes:
+      - ./workers/config.properties:/opt/presto-server/etc/config.properties
+      - ./workers/1/node.properties:/opt/presto-server/etc/node.properties
+      - ./config/catalog/mongodb.properties:/opt/presto-server/etc/catalog/mongodb.propertiess
+      - ./config/catalog/postgresql.properties:/opt/presto-server/etc/catalog/postgresql.properties
+      - ./config/catalog/cassandra.properties:/opt/presto-server/etc/catalog/cassandra.properties
+      - ./config/catalog/tpcds.properties:/opt/presto-server/etc/catalog/tpcds.properties
+    depends_on:
+      - coordinator
+      - mongodb
+      - postgresql
+      - cassandra
+    networks:
+      - presto-nw
+
+  # worker_2:
+  #   image: prestodb/presto:latest
+  #   container_name: worker_2
+  #   volumes:
+  #     - ./workers/config.properties:/opt/presto-server/etc/config.properties
+  #     - ./workers/2/node.properties:/opt/presto-server/etc/node.properties
+  #     - ./config/catalog/mongodb.properties:/opt/presto-server/etc/catalog/mongodb.properties
+  #     - ./config/catalog/postgresql.properties:/opt/presto-server/etc/catalog/postgresql.properties
+  #     - ./config/catalog/cassandra.properties:/opt/presto-server/etc/catalog/cassandra.properties
+  #     - ./config/catalog/tpcds.properties:/opt/presto-server/etc/catalog/tpcds.properties
+  #   depends_on:
+  #     - coordinator
+  #     - mongodb
+  #     - postgresql
+  #     - cassandra
+  #   networks:
+  #     - presto-nw
+
+  mongodb:
+    image: mongo:6.0.4
+    container_name: presto-mongo
+    volumes:
+      - mongoData:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - presto-nw
+  
+  postgresql:
+    image: postgres
+    container_name: presto-postgresql
+    environment:  
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: presto
+      POSTGRES_DB: presto
+    ports:
+      - "5432:5432"
+    networks:
+      - presto-nw 
+
+  cassandra:
+    image: cassandra:latest
+    container_name: presto-cassandra
+    environment:
+      - CASSANDRA_USER=admin
+      - CASSANDRA_PASSWORD=admin
+    volumes:
+      - cassandra-data:/var/lib/cassandra
+    ports:
+      - "9042:9042"
+    networks:
+      - presto-nw
+
+networks:
+  presto-nw:
+    driver: bridge
+
+volumes:
+  mongoData:
+  cassandra-data:
+>>>>>>> 8524244ef8eb69afa91b144ba497a30327a9cc77
   
