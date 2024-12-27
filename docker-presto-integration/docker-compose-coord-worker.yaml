@@ -7,7 +7,8 @@ services:
     container_name: coordinator
     volumes:
       - ./coordinator/config.properties:/opt/presto-server/etc/config.properties
-      - ./coordinator/node.properties:/opt/presto-server/etc/node.properties
+      - ./coordinator/jvm.config:/opt/presto-server/etc/jvm.config
+      # - ./coordinator/node.properties:/opt/presto-server/etc/node.properties
       - ./config/catalog/mongodb.properties:/opt/presto-server/etc/catalog/mongodb.properties
       - ./config/catalog/postgresql.properties:/opt/presto-server/etc/catalog/postgresql.properties
       - ./config/catalog/cassandra.properties:/opt/presto-server/etc/catalog/cassandra.properties
@@ -26,7 +27,8 @@ services:
     container_name: worker_1
     volumes:
       - ./workers/config.properties:/opt/presto-server/etc/config.properties
-      - ./workers/1/node.properties:/opt/presto-server/etc/node.properties
+      - ./coordinator/jvm.config:/opt/presto-server/etc/jvm.config
+      # - ./workers/1/node.properties:/opt/presto-server/etc/node.properties
       - ./config/catalog/mongodb.properties:/opt/presto-server/etc/catalog/mongodb.propertiess
       - ./config/catalog/postgresql.properties:/opt/presto-server/etc/catalog/postgresql.properties
       - ./config/catalog/cassandra.properties:/opt/presto-server/etc/catalog/cassandra.properties
@@ -39,23 +41,24 @@ services:
     networks:
       - presto-nw
 
-  # worker_2:
-  #   image: prestodb/presto:latest
-  #   container_name: worker_2
-  #   volumes:
-  #     - ./workers/config.properties:/opt/presto-server/etc/config.properties
-  #     - ./workers/2/node.properties:/opt/presto-server/etc/node.properties
-  #     - ./config/catalog/mongodb.properties:/opt/presto-server/etc/catalog/mongodb.properties
-  #     - ./config/catalog/postgresql.properties:/opt/presto-server/etc/catalog/postgresql.properties
-  #     - ./config/catalog/cassandra.properties:/opt/presto-server/etc/catalog/cassandra.properties
-  #     - ./config/catalog/tpcds.properties:/opt/presto-server/etc/catalog/tpcds.properties
-  #   depends_on:
-  #     - coordinator
-  #     - mongodb
-  #     - postgresql
-  #     - cassandra
-  #   networks:
-  #     - presto-nw
+  worker_2:
+    image: prestodb/presto:latest
+    container_name: worker_2
+    volumes:
+      - ./workers/config.properties:/opt/presto-server/etc/config.properties
+      - ./coordinator/jvm.config:/opt/presto-server/etc/jvm.config
+      # - ./workers/2/node.properties:/opt/presto-server/etc/node.properties
+      - ./config/catalog/mongodb.properties:/opt/presto-server/etc/catalog/mongodb.properties
+      - ./config/catalog/postgresql.properties:/opt/presto-server/etc/catalog/postgresql.properties
+      - ./config/catalog/cassandra.properties:/opt/presto-server/etc/catalog/cassandra.properties
+      - ./config/catalog/tpcds.properties:/opt/presto-server/etc/catalog/tpcds.properties
+    depends_on:
+      - coordinator
+      - mongodb
+      - postgresql
+      - cassandra
+    networks:
+      - presto-nw
 
   mongodb:
     image: mongo:6.0.4

@@ -5,14 +5,13 @@ services:
     image: prestodb/presto:latest
     container_name: presto
     volumes:
+      - ./coordinator/config.properties:/opt/presto-server/etc/config.properties
+      - ./coordinator/jvm.config:/opt/presto-server/etc/jvm.config
       - ./config/catalog/mongodb.properties:/opt/presto-server/etc/catalog/mongodb.properties
       - ./config/catalog/mysql.properties:/opt/presto-server/etc/catalog/mysql.properties
       - ./config/catalog/postgresql.properties:/opt/presto-server/etc/catalog/postgresql.properties
       - ./config/catalog/cassandra.properties:/opt/presto-server/etc/catalog/cassandra.properties
       - ./config/catalog/tpcds.properties:/opt/presto-server/etc/catalog/tpcds.properties
-    depends_on:
-      - mongodb
-      - mysql
     ports:
       - "8080:8080"
     networks:
@@ -27,18 +26,6 @@ services:
       - "27017:27017"
     networks:
       - presto-nw
-  
-  mysql:
-    image: mysql
-    container_name: presto-mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: 'presto'
-      MYSQL_USER: 'presto'
-      MYSQL_PASSWORD: 'presto'
-    ports:
-      - "3306:3306"
-    networks:
-      - presto-nw  
   
   postgresql:
     image: postgres
