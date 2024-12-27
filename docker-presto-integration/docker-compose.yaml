@@ -7,9 +7,9 @@ services:
     volumes:
       - ./config/catalog:/opt/presto-server/etc/catalog
       - ./coordinator:/opt/benchmark-driver
-      - ./results:/opt/results
+        #- ./results:/opt/results
       - ./Queries:/opt/queries
-      - ./config/jvm.config:/opt/presto-server/etc/jvm.config
+        #- ./coordinator/jvm.config:/opt/presto-server/etc/jvm.config
     ports:
       - "8080:8080"
     networks:
