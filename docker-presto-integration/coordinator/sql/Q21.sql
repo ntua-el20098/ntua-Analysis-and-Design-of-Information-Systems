@@ -1,0 +1,57 @@
+-- with join
+
+-- Set sales date and limit
+WITH params AS (
+    SELECT CAST('1998-01-31' AS DATE) AS sales_date, -- Replace with random logic if needed
+           100 AS limit_count
+)
+
+SELECT *
+FROM (
+    SELECT w.w_warehouse_name,
+           i.i_item_id,
+           SUM(CASE WHEN CAST(d.d_date AS DATE) < p.sales_date THEN inv.inv_quantity_on_hand ELSE 0 END) AS inv_before,
+           SUM(CASE WHEN CAST(d.d_date AS DATE) >= p.sales_date THEN inv.inv_quantity_on_hand ELSE 0 END) AS inv_after
+    FROM inventory inv
+    JOIN warehouse w ON inv.inv_warehouse_sk = w.w_warehouse_sk
+    JOIN item i ON inv.inv_item_sk = i.i_item_sk
+    JOIN date_dim d ON inv.inv_date_sk = d.d_date_sk
+    CROSS JOIN params p
+    WHERE i.i_current_price BETWEEN 0.99 AND 1.49
+      AND d.d_date BETWEEN (p.sales_date - INTERVAL '30' DAY) AND (p.sales_date + INTERVAL '30' DAY)
+    GROUP BY w.w_warehouse_name, i.i_item_id
+) x
+WHERE (CASE WHEN inv_before > 0 THEN inv_after / inv_before ELSE NULL END) BETWEEN 2.0/3.0 AND 3.0/2.0
+ORDER BY w_warehouse_name, i_item_id
+LIMIT 100;
+
+
+-- without join
+
+-- Set sales date and limit
+WITH params AS (
+    SELECT CAST('1998-01-31' AS DATE) AS sales_date, -- Replace with random logic if needed
+           100 AS limit_count
+)
+
+SELECT *
+FROM (
+    SELECT w.w_warehouse_name,
+           i.i_item_id,
+           SUM(CASE WHEN CAST(d.d_date AS DATE) < p.sales_date THEN inv.inv_quantity_on_hand ELSE 0 END) AS inv_before,
+           SUM(CASE WHEN CAST(d.d_date AS DATE) >= p.sales_date THEN inv.inv_quantity_on_hand ELSE 0 END) AS inv_after
+    FROM inventory inv,
+         warehouse w,
+         item i,
+         date_dim d,
+         params p
+    WHERE i.i_current_price BETWEEN 0.99 AND 1.49
+      AND i.i_item_sk = inv.inv_item_sk
+      AND inv.inv_warehouse_sk = w.w_warehouse_sk
+      AND inv.inv_date_sk = d.d_date_sk
+      AND d.d_date BETWEEN (p.sales_date - INTERVAL '30' DAY) AND (p.sales_date + INTERVAL '30' DAY)
+    GROUP BY w.w_warehouse_name, i.i_item_id
+) x
+WHERE (CASE WHEN inv_before > 0 THEN inv_after / inv_before ELSE NULL END) BETWEEN 2.0/3.0 AND 3.0/2.0
+ORDER BY w_warehouse_name, i_item_id
+LIMIT 100;
