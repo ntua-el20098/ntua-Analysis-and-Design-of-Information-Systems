@@ -1,7 +1,7 @@
 -- insert to cassandra
 
--- Set schema name
-SET schema_name = 'sf1';
+-- -- Set schema name
+-- SET schema_name = 'sf1';
 
 CREATE TABLE call_center AS
 SELECT
@@ -36,7 +36,7 @@ SELECT
     CAST(cc_country AS VARCHAR) AS cc_country,
     CAST(cc_gmt_offset AS DOUBLE) AS cc_gmt_offset, 
     CAST(cc_tax_percentage AS DOUBLE) AS cc_tax_percentage 
-FROM tpcds.${schema_name}.call_center;
+FROM tpcds.sf1.call_center;
 
 CREATE TABLE catalog_page AS
 SELECT 
@@ -49,7 +49,7 @@ SELECT
     cp_catalog_page_number,
     CAST(cp_description AS VARCHAR) AS cp_description,
     CAST(cp_type AS VARCHAR) AS cp_type
-FROM tpcds.${schema_name}.catalog_page;
+FROM tpcds.sf1.catalog_page;
 
 CREATE TABLE catalog_returns AS
 SELECT
@@ -80,7 +80,7 @@ SELECT
     CAST(cr_reversed_charge AS DOUBLE) AS cr_reversed_charge, -- Cast DECIMAL to DOUBLE
     CAST(cr_store_credit AS DOUBLE) AS cr_store_credit, -- Cast DECIMAL to DOUBLE
     CAST(cr_net_loss AS DOUBLE) AS cr_net_loss -- Cast DECIMAL to DOUBLE
-FROM tpcds.${schema_name}.catalog_returns;
+FROM tpcds.sf1.catalog_returns;
 
 CREATE TABLE catalog_sales AS
 SELECT
@@ -118,7 +118,7 @@ SELECT
     CAST(cs_net_paid_inc_ship AS DOUBLE) AS cs_net_paid_inc_ship,
     CAST(cs_net_paid_inc_ship_tax AS DOUBLE) AS cs_net_paid_inc_ship_tax,
     CAST(cs_net_profit AS DOUBLE) AS cs_net_profit
-FROM tpcds.${schema_name}.catalog_sales;
+FROM tpcds.sf1.catalog_sales;
 
 CREATE TABLE customer AS
 SELECT 
@@ -140,7 +140,7 @@ SELECT
     CAST(c_login AS VARCHAR) AS c_login,
     CAST(c_email_address AS VARCHAR) AS c_email_address,
     c_last_review_date_sk
-FROM tpcds.${schema_name}.customer;
+FROM tpcds.sf1.customer;
 
 CREATE TABLE customer_address AS
 SELECT
@@ -157,7 +157,7 @@ SELECT
     CAST(ca_country AS VARCHAR) AS ca_country,
     CAST(ca_gmt_offset AS DOUBLE) AS ca_gmt_offset,
     CAST(ca_location_type AS VARCHAR) AS ca_location_type
-FROM tpcds.${schema_name}.customer_address;
+FROM tpcds.sf1.customer_address;
 
 CREATE TABLE customer_demographics AS
 SELECT 
@@ -170,7 +170,7 @@ SELECT
     cd_dep_count,
     cd_dep_employed_count,
     cd_dep_college_count
-FROM tpcds.${schema_name}.customer_demographics;
+FROM tpcds.sf1.customer_demographics;
 
 CREATE TABLE date_dim AS
 SELECT 
@@ -202,7 +202,7 @@ SELECT
     CAST(d_current_month AS VARCHAR) AS d_current_month,
     CAST(d_current_quarter AS VARCHAR) AS d_current_quarter,
     CAST(d_current_year AS VARCHAR) AS d_current_year
-FROM tpcds.${schema_name}.date_dim;
+FROM tpcds.sf1.date_dim;
 
 CREATE TABLE dbgen_version AS
 SELECT
@@ -210,7 +210,7 @@ SELECT
     dv_create_date,
     CAST(dv_create_time AS VARCHAR) AS dv_create_time,
     dv_cmdline_args
-FROM tpcds.${schema_name}.dbgen_version;
+FROM tpcds.sf1.dbgen_version;
 
 CREATE TABLE household_demographics AS
 SELECT 
@@ -219,11 +219,11 @@ SELECT
     CAST(hd_buy_potential AS VARCHAR) AS hd_buy_potential,
     hd_dep_count,
     hd_vehicle_count
-FROM tpcds.${schema_name}.household_demographics;
+FROM tpcds.sf1.household_demographics;
 
-CREATE TABLE income_band AS SELECT * FROM tpcds.${schema_name}.income_band;
+CREATE TABLE income_band AS SELECT * FROM tpcds.sf1.income_band;
 
-CREATE TABLE inventory AS SELECT * FROM tpcds.${schema_name}.inventory;
+CREATE TABLE inventory AS SELECT * FROM tpcds.sf1.inventory;
 
 CREATE TABLE item AS
 SELECT
@@ -249,7 +249,7 @@ SELECT
     CAST(i_container AS VARCHAR) AS i_container,
     i_manager_id,
     CAST(i_product_name AS VARCHAR) AS i_product_name
-FROM tpcds.${schema_name}.item;
+FROM tpcds.sf1.item;
 
 CREATE TABLE promotion AS
 SELECT
@@ -272,14 +272,14 @@ SELECT
     CAST(p_channel_details AS VARCHAR) AS p_channel_details,
     CAST(p_purpose AS VARCHAR) AS p_purpose,
     CAST(p_discount_active AS VARCHAR) AS p_discount_active
-FROM tpcds.${schema_name}.promotion;
+FROM tpcds.sf1.promotion;
 
 CREATE TABLE reason AS
 SELECT 
     r_reason_sk,
     CAST(r_reason_id AS VARCHAR) AS r_reason_id,
     CAST(r_reason_desc AS VARCHAR) AS r_reason_desc
-FROM tpcds.${schema_name}.reason;
+FROM tpcds.sf1.reason;
 
 CREATE TABLE ship_mode AS
 SELECT 
@@ -289,7 +289,7 @@ SELECT
     CAST(sm_code AS VARCHAR) AS sm_code,
     CAST(sm_carrier AS VARCHAR) AS sm_carrier,
     CAST(sm_contract AS VARCHAR) AS sm_contract
-FROM tpcds.${schema_name}.ship_mode;
+FROM tpcds.sf1.ship_mode;
 
 CREATE TABLE store AS
 SELECT
@@ -322,7 +322,7 @@ SELECT
     CAST(s_country AS VARCHAR) AS s_country,
     CAST(s_gmt_offset AS DOUBLE) AS s_gmt_offset,
     CAST(s_tax_precentage AS DOUBLE) AS s_tax_precentage
-FROM tpcds.${schema_name}.store;
+FROM tpcds.sf1.store;
 
 CREATE TABLE store_returns AS
 SELECT
@@ -346,7 +346,7 @@ SELECT
     CAST(sr_reversed_charge AS DOUBLE) AS sr_reversed_charge,
     CAST(sr_store_credit AS DOUBLE) AS sr_store_credit,
     CAST(sr_net_loss AS DOUBLE) AS sr_net_loss
-FROM tpcds.${schema_name}.store_returns;
+FROM tpcds.sf1.store_returns;
 
 CREATE TABLE store_sales AS
 SELECT
@@ -373,7 +373,7 @@ SELECT
     CAST(ss_net_paid AS DOUBLE) AS ss_net_paid,
     CAST(ss_net_paid_inc_tax AS DOUBLE) AS ss_net_paid_inc_tax,
     CAST(ss_net_profit AS DOUBLE) AS ss_net_profit
-FROM tpcds.${schema_name}.store_sales;
+FROM tpcds.sf1.store_sales;
 
 CREATE TABLE time_dim AS
 SELECT 
@@ -387,7 +387,8 @@ SELECT
     CAST(t_shift AS VARCHAR) AS t_shift,
     CAST(t_sub_shift AS VARCHAR) AS t_sub_shift,
     CAST(t_meal_time AS VARCHAR) AS t_meal_time
-FROM tpcds.${schema_name}.time_dim;
+FROM tpcds.sf1.time_dim;
+
 
 CREATE TABLE warehouse AS
 SELECT 
@@ -404,8 +405,8 @@ SELECT
     CAST(w_state AS VARCHAR) AS w_state,
     CAST(w_zip AS VARCHAR) AS w_zip,
     CAST(w_country AS VARCHAR) AS w_country,
-    CAST(w_gmt_offset AS VARCHAR) AS w_gmt_offset
-FROM tpcds.${schema_name}.warehouse;
+    CAST(w_gmt_offset AS DOUBLE) AS w_gmt_offset
+FROM tpcds.sf1.warehouse;
 
 CREATE TABLE web_page AS
 SELECT 
@@ -423,7 +424,7 @@ SELECT
     wp_link_count,
     wp_image_count,
     wp_max_ad_count
-FROM tpcds.${schema_name}.web_page;
+FROM tpcds.sf1.web_page;
 
 CREATE TABLE web_returns AS
 SELECT 
@@ -442,16 +443,16 @@ SELECT
     wr_reason_sk,
     wr_order_number,
     wr_return_quantity,
-    CAST(wr_return_amt AS VARCHAR) AS wr_return_amt,
-    CAST(wr_return_tax AS VARCHAR) AS wr_return_tax,
-    CAST(wr_return_amt_inc_tax AS VARCHAR) AS wr_return_amt_inc_tax,
-    CAST(wr_fee AS VARCHAR) AS wr_fee,
-    CAST(wr_return_ship_cost AS VARCHAR) AS wr_return_ship_cost,
-    CAST(wr_refunded_cash AS VARCHAR) AS wr_refunded_cash,
-    CAST(wr_reversed_charge AS VARCHAR) AS wr_reversed_charge,
-    CAST(wr_account_credit AS VARCHAR) AS wr_account_credit,
-    CAST(wr_net_loss AS VARCHAR) AS wr_net_loss
-FROM tpcds.${schema_name}.web_returns;
+    CAST(wr_return_amt AS DOUBLE) AS wr_return_amt,
+    CAST(wr_return_tax AS DOUBLE) AS wr_return_tax,
+    CAST(wr_return_amt_inc_tax AS DOUBLE) AS wr_return_amt_inc_tax,
+    CAST(wr_fee AS DOUBLE) AS wr_fee,
+    CAST(wr_return_ship_cost AS DOUBLE) AS wr_return_ship_cost,
+    CAST(wr_refunded_cash AS DOUBLE) AS wr_refunded_cash,
+    CAST(wr_reversed_charge AS DOUBLE) AS wr_reversed_charge,
+    CAST(wr_account_credit AS DOUBLE) AS wr_account_credit,
+    CAST(wr_net_loss AS DOUBLE) AS wr_net_loss
+FROM tpcds.sf1.web_returns;
 
 CREATE TABLE web_sales AS
 SELECT 
@@ -474,22 +475,21 @@ SELECT
     ws_promo_sk,
     ws_order_number,
     ws_quantity,
-    CAST(ws_wholesale_cost AS VARCHAR) AS ws_wholesale_cost,
-    CAST(ws_list_price AS VARCHAR) AS ws_list_price,
-    CAST(ws_sales_price AS VARCHAR) AS ws_sales_price,
-    CAST(ws_ext_discount_amt AS VARCHAR) AS ws_ext_discount_amt,
-    CAST(ws_ext_sales_price AS VARCHAR) AS ws_ext_sales_price,
-    CAST(ws_ext_wholesale_cost AS VARCHAR) AS ws_ext_wholesale_cost,
-    CAST(ws_ext_list_price AS VARCHAR) AS ws_ext_list_price,
-    CAST(ws_ext_tax AS VARCHAR) AS ws_ext_tax,
-    CAST(ws_coupon_amt AS VARCHAR) AS ws_coupon_amt,
-    CAST(ws_ext_ship_cost AS VARCHAR) AS ws_ext_ship_cost,
-    CAST(ws_net_paid AS VARCHAR) AS ws_net_paid,
-    CAST(ws_net_paid_inc_tax AS VARCHAR) AS ws_net_paid_inc_tax,
-    CAST(ws_net_paid_inc_ship AS VARCHAR) AS ws_net_paid_inc_ship,
-    CAST(ws_net_paid_inc_ship_tax AS VARCHAR) AS ws_net_paid_inc_ship_tax,
-    CAST(ws_net_profit AS VARCHAR) AS ws_net_profit
-FROM tpcds.${schema_name}.web_sales;
+    CAST(ws_wholesale_cost AS DOUBLE) AS ws_wholesale_cost,
+    CAST(ws_list_price AS DOUBLE) AS ws_list_price,
+    CAST(ws_sales_price AS DOUBLE) AS ws_sales_price,
+    CAST(ws_ext_discount_amt AS DOUBLE) AS ws_ext_discount_amt,
+    CAST(ws_ext_sales_price AS DOUBLE) AS ws_ext_sales_price,
+    CAST(ws_ext_wholesale_cost AS DOUBLE) AS ws_ext_wholesale_cost,
+    CAST(ws_ext_list_price AS DOUBLE) AS ws_ext_list_price,
+    CAST(ws_ext_tax AS DOUBLE) AS ws_ext_tax,
+    CAST(ws_ext_ship_cost AS DOUBLE) AS ws_ext_ship_cost,
+    CAST(ws_net_paid AS DOUBLE) AS ws_net_paid,
+    CAST(ws_net_paid_inc_tax AS DOUBLE) AS ws_net_paid_inc_tax,
+    CAST(ws_net_paid_inc_ship AS DOUBLE) AS ws_net_paid_inc_ship,
+    CAST(ws_net_paid_inc_ship_tax AS DOUBLE) AS ws_net_paid_inc_ship_tax,
+    CAST(ws_net_profit AS DOUBLE) AS ws_net_profit
+FROM tpcds.sf1.web_sales;
 
 CREATE TABLE web_site AS
 SELECT 
@@ -517,9 +517,22 @@ SELECT
     CAST(web_state AS VARCHAR) AS web_state,
     CAST(web_zip AS VARCHAR) AS web_zip,
     CAST(web_country AS VARCHAR) AS web_country,
-    CAST(web_gmt_offset AS VARCHAR) AS web_gmt_offset,
-    CAST(web_tax_percentage AS VARCHAR) AS web_tax_percentage
-FROM tpcds.${schema_name}.web_site;
+    CAST(web_gmt_offset AS DOUBLE) AS web_gmt_offset,
+    CAST(web_tax_percentage AS DOUBLE) AS web_tax_percentage
+FROM tpcds.sf1.web_site;
+
+
+-- warehouse
+
+
+-- web_returns
+
+-- web_sales
+
+-- web_site
+
+
+-- cassandra: customer_demographics
 
 
 
