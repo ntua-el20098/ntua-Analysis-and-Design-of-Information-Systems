@@ -85,7 +85,7 @@ FROM (
 ) AS sales_data
 GROUP BY ROLLUP(channel, i_brand_id, i_class_id, i_category_id)
 ORDER BY channel, i_brand_id, i_class_id, i_category_id
-LIMIT 100;
+LIMIT 100
 
 -- Second query section
 
@@ -181,4 +181,4 @@ ON this_year.i_brand_id = last_year.i_brand_id
    AND this_year.i_class_id = last_year.i_class_id
    AND this_year.i_category_id = last_year.i_category_id
 ORDER BY this_year.channel, this_year.i_brand_id, this_year.i_class_id, this_year.i_category_id
-LIMIT 100;
+LIMIT 100

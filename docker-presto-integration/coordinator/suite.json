@@ -1,14 +1,8 @@
 {
     "tpcds_postgresql_sf1": {
-        "query": [
-            "Q15.sql"
-        ],
-        "schema": [
-            "public"
-        ],
+        "query": ["Q21.*"],
+        "schema": ["public"],
         "session": {
-            "catalog": "postgresql",
-            "schema": "public"
-        }
+	}
     }
 }
