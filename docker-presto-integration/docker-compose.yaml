@@ -56,7 +56,7 @@ services:
       CASSANDRA_USER: admin
       CASSANDRA_PASSWORD: admin
     volumes:
-      - cassandra-data:/var/lib/docker/cassandra
+      - cassandra-data:/var/lib/cassandra
     ports:
       - "9042:9042"
     networks:
