@@ -1,4 +1,4 @@
--- without joins
+-- postgresql,cassandra ok
 
 -- Define parameters
 WITH params AS (

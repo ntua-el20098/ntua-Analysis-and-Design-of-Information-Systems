@@ -1,4 +1,4 @@
--- without joins
+-- postgresql,cassandra ok
 
 -- Define parameters dynamically before query execution:
 WITH customer_sales AS (

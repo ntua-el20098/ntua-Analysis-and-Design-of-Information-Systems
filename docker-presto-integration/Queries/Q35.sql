@@ -1,3 +1,5 @@
+-- postgresql,cassandra ok
+
 -- Define parameters
 WITH customer_sales AS (
     SELECT 
