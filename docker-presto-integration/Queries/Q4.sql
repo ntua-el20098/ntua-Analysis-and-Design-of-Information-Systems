@@ -142,7 +142,7 @@ ORDER BY
        t_s_secyear.customer_first_name,
        t_s_secyear.customer_last_name,
        t_s_secyear.customer_email_address
-LIMIT 100;
+LIMIT 100
      ,date_dim
  where c_customer_sk = ss_customer_sk
    and ss_sold_date_sk = d_date_sk
@@ -242,4 +242,4 @@ union all
          ,t_s_secyear.customer_first_name
          ,t_s_secyear.customer_last_name
          ,t_s_secyear.customer_email_address
-limit 100;
+limit 100
