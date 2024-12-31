@@ -48,4 +48,4 @@ SELECT
     "total net profit"
 FROM sales_data
 ORDER BY "order count"
-LIMIT 100;
+LIMIT 100
