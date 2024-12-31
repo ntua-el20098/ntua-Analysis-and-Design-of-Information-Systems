@@ -87,4 +87,4 @@ ORDER BY
     cd_dep_count,
     cd_dep_employed_count,
     cd_dep_college_count
-LIMIT 100; -- Apply the limit
+LIMIT 100 -- Apply the limit
