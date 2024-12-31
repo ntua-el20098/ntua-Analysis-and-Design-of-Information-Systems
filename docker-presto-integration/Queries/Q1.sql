@@ -34,4 +34,4 @@ WHERE
     AND s.s_state = 'TN'
 ORDER BY 
     c_customer_id
-LIMIT 100;
+LIMIT 100
