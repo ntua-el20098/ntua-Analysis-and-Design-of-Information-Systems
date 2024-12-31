@@ -36,4 +36,4 @@ FROM
 ORDER BY 
     ca_zip
 -- _LIMITC: Final row limit for the query
-LIMIT 100;
+LIMIT 100
