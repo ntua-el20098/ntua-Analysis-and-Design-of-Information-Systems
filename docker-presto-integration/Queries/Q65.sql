@@ -66,4 +66,4 @@ WHERE
 ORDER BY 
     s_store_name, 
     i_item_desc
-LIMIT 100;
+LIMIT 100
