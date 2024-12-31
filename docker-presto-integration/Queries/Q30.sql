@@ -67,4 +67,4 @@ ORDER BY
     c_email_address,
     c_last_review_date_sk,
     ctr_total_return
-LIMIT 100; -- Final limit
+LIMIT 100 -- Final limit
