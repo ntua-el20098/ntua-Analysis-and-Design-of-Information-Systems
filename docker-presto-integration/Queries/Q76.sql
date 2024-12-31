@@ -91,4 +91,4 @@ ORDER BY
     d_year, 
     d_qoy, 
     i_category
-LIMIT 100;
+LIMIT 100
