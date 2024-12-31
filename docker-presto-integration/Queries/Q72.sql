@@ -26,4 +26,4 @@ WHERE d1.d_week_seq = d2.d_week_seq
   AND cd_marital_status = 'M'
 GROUP BY i_item_desc, w_warehouse_name, d1.d_week_seq
 ORDER BY total_cnt DESC, i_item_desc, w_warehouse_name, d1.d_week_seq
-LIMIT 100;
+LIMIT 100
