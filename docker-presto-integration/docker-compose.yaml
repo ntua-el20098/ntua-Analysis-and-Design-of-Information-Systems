@@ -23,7 +23,7 @@ services:
         constraints:
           - node.hostname == snf-77266
   mongodb:
-    image: mongo:latest
+    image: mongo
     container_name: presto-mongo
     volumes:
       - mongoData:/data/db
