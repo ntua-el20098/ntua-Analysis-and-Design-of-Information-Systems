@@ -58,4 +58,4 @@ FROM (
 ) y
 WHERE web_cumulative > store_cumulative
 ORDER BY item_sk, d_date
-LIMIT 100;
+LIMIT 100
