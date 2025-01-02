@@ -10,7 +10,7 @@ services:
         - ./coordinator/presto-benchmark-driver:/opt/benchmark-driver/presto-benchmark-driver
         - ./Queries:/opt/benchmark-driver/sql
         - ./coordinator/suite.json:/opt/benchmark-driver/suite.json
-          #- ./coordinator/config.properties:/opt/presto-server/etc/config.properties
+        - ./coordinator/config.properties:/opt/presto-server/etc/config.properties
     ports:
         - "8080:8080"
     networks:
