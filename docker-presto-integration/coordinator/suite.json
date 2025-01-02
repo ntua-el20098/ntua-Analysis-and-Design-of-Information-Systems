@@ -1,32 +1,7 @@
 {
   "tpcds_postgresql_sf1": {
-    "query": ["Q.*.sql"],
-    "schema": ["public"],
-    "session": {}
-  },
-  "tpcds_postgresql_sf10": {
-    "query": ["Q.*.sql"],
-    "schema": ["public"],
-    "session": {}
-  },
-  "tpcds_cassandra_sf1": {
-    "query": ["Q.*.sql"],
-    "schema": [""],
-    "session": {}
-  },
-  "tpcds_cassandra_sf10": {
-    "query": ["Q.*.sql"],
-    "schema": [""],
-    "session": {}
-  },
-  "tpcds_mongodb_sf1": {
-    "query": ["Q.*.sql"],
-    "schema": [""],
-    "session": {}
-  },
-  "tpcds_mongodb_sf10": {
-    "query": ["Q.*.sql"],
-    "schema": [""],
+    "query": ["Q.*"],
+    "schema": ["sf1_"],
     "session": {}
   }
 }
