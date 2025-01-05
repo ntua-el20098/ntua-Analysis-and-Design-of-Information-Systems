@@ -23,10 +23,11 @@ services:
   presto-worker-1:
     image: prestodb/presto:latest
     container_name: presto-worker-1
-    volumes:
+    volumes:   
       - ./config/catalog:/opt/presto-server/etc/catalog
-      - ./worker/jvm.config:/opt/presto-server/etc/jvm.config
-      - ./worker/config.properties:/opt/presto-server/etc/config.properties
+      - ./workers/jvm.config:/opt/presto-server/etc/jvm.config
+      - ./workers/config.properties:/opt/presto-server/etc/config.properties
+      - ./workers/1/node.properties:/opt/presto-server/etc/node.properties
     environment:
       PRESTO_COORDINATOR_HOST: presto-coordinator
     ports:
@@ -44,8 +45,9 @@ services:
     container_name: presto-worker-2
     volumes:
       - ./config/catalog:/opt/presto-server/etc/catalog
-      - ./worker/jvm.config:/opt/presto-server/etc/jvm.config
-      - ./worker/config.properties:/opt/presto-server/etc/config.properties
+      - ./workers/jvm.config:/opt/presto-server/etc/jvm.config
+      - ./workers/config.properties:/opt/presto-server/etc/config.properties
+      - ./workers/2/node.properties:/opt/presto-server/etc/node.properties
     environment:
       PRESTO_COORDINATOR_HOST: presto-coordinator
     ports:
@@ -63,8 +65,9 @@ services:
     container_name: presto-worker-3
     volumes:
       - ./config/catalog:/opt/presto-server/etc/catalog
-      - ./worker/jvm.config:/opt/presto-server/etc/jvm.config
-      - ./worker/config.properties:/opt/presto-server/etc/config.properties
+      - ./workers/jvm.config:/opt/presto-server/etc/jvm.config
+      - ./workers/config.properties:/opt/presto-server/etc/config.properties
+      - ./workers/3/node.properties:/opt/presto-server/etc/node.properties
     environment:
       PRESTO_COORDINATOR_HOST: presto-coordinator
     ports:
