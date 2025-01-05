@@ -37,7 +37,7 @@ services:
     deploy:
       placement:
         constraints:
-          - node.hostname == snf-77266
+          - node.hostname == snf-77267
 
   # Presto Worker 2
   presto-worker-2:
@@ -59,25 +59,6 @@ services:
         constraints:
           - node.hostname == snf-77284
 
-  # Presto Worker 3
-  presto-worker-3:
-    image: prestodb/presto:latest
-    container_name: presto-worker-3
-    volumes:
-      - ./config/catalog:/opt/presto-server/etc/catalog
-      - ./workers/jvm.config:/opt/presto-server/etc/jvm.config
-      - ./workers/config.properties:/opt/presto-server/etc/config.properties
-      - ./workers/3/node.properties:/opt/presto-server/etc/node.properties
-    environment:
-      PRESTO_COORDINATOR_HOST: presto-coordinator
-    ports:
-      - "8083:8083"
-    networks:
-      - overnet
-    deploy:
-      placement:
-        constraints:
-          - node.hostname == snf-77267
 
   mongodb:
     image: mongo
