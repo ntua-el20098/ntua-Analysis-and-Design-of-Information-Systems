@@ -12,7 +12,7 @@ services:
         - ./coordinator/suite.json:/opt/benchmark-driver/suite.json
         - ./coordinator/config.properties:/opt/presto-server/etc/config.properties
     ports:
-        - "8080:8080"
+      - "8080:8080"
     networks:
       - overnet
     deploy:

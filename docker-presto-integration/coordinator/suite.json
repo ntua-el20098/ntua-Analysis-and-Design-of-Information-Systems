@@ -1,7 +1,7 @@
 {
   "tpcds_postgresql_sf1": {
     "query": ["Q.*"],
-    "schema": ["sf1_"],
+    "schema": ["public"],
     "session": {}
   }
 }
