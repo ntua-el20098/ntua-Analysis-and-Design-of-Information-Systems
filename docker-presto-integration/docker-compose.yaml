@@ -3,7 +3,6 @@ version: '3.9'
 services:
   presto:
     image: prestodb/presto:latest
-    container_name: presto-coordinator
     volumes:
       - ./config/catalog:/opt/presto-server/etc/catalog
       - ./coordinator/jvm.config:/opt/presto-server/etc/jvm.config
@@ -11,6 +10,7 @@ services:
       - ./Queries:/opt/benchmark-driver/sql
       - ./coordinator/suite.json:/opt/benchmark-driver/suite.json
       - ./coordinator/config.properties:/opt/presto-server/etc/config.properties
+      - ./coordinator/node.properties:/opt/presto-server/etc/node.properties
     ports:
       - "8080:8080"
     networks:
@@ -22,11 +22,10 @@ services:
   # Presto Worker 1
   presto-worker-1:
     image: prestodb/presto:latest
-    container_name: presto-worker-1
     volumes:   
       - ./config/catalog:/opt/presto-server/etc/catalog
       - ./workers/jvm.config:/opt/presto-server/etc/jvm.config
-      - ./workers/config.properties:/opt/presto-server/etc/config.properties
+      - ./workers/1/config.properties:/opt/presto-server/etc/config.properties
       - ./workers/1/node.properties:/opt/presto-server/etc/node.properties
     environment:
       PRESTO_COORDINATOR_HOST: presto-coordinator
@@ -42,11 +41,10 @@ services:
   # Presto Worker 2
   presto-worker-2:
     image: prestodb/presto:latest
-    container_name: presto-worker-2
     volumes:
       - ./config/catalog:/opt/presto-server/etc/catalog
       - ./workers/jvm.config:/opt/presto-server/etc/jvm.config
-      - ./workers/config.properties:/opt/presto-server/etc/config.properties
+      - ./workers/2/config.properties:/opt/presto-server/etc/config.properties
       - ./workers/2/node.properties:/opt/presto-server/etc/node.properties
     environment:
       PRESTO_COORDINATOR_HOST: presto-coordinator
@@ -62,7 +60,6 @@ services:
 
   mongodb:
     image: mongo
-    container_name: presto-mongo
     volumes:
       - mongoData:/data/db
     ports:
@@ -75,7 +72,6 @@ services:
           - node.hostname == snf-77266
   postgresql:
     image: postgres
-    container_name: presto-postgresql
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: presto
@@ -93,7 +89,6 @@ services:
 
   cassandra:
     image: cassandra:latest
-    container_name: presto-cassandra
     environment:
       CASSANDRA_USER: admin
       CASSANDRA_PASSWORD: admin
