@@ -28,7 +28,7 @@ WITH
         AND ws1.ws_ship_addr_sk = ca_address_sk
         AND ca.ca_state = state.state
         AND ws1.ws_web_site_sk = ws.web_site_sk
-        AND ws.web_company_name = 'pri'
+        AND TRIM(ws.web_company_name) = 'pri'
         AND EXISTS (
             SELECT 1
             FROM web_sales ws2
