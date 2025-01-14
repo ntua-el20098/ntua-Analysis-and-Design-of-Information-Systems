@@ -38,7 +38,7 @@ WITH ss AS
  (SELECT cr_call_center_sk,
                         SUM(cr_return_amount) AS returns,
                         SUM(cr_net_loss) AS profit_loss
- FROM catalog_returns,
+ FROM postgresql.public.catalog_returns,
                postgresql.public.date_dim
  WHERE cr_returned_date_sk = d_date_sk
                 AND DATE_TRUNC('day', d_date) BETWEEN DATE_TRUNC('day', DATE '1998-08-04')
