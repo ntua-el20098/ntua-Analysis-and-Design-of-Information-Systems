@@ -10,10 +10,10 @@ FROM (
            i.i_item_id,
            SUM(CASE WHEN DATE_TRUNC('day', CAST(d.d_date AS DATE)) < p.sales_date THEN inv.inv_quantity_on_hand ELSE 0 END) AS inv_before,
            SUM(CASE WHEN DATE_TRUNC('day', CAST(d.d_date AS DATE)) >= p.sales_date THEN inv.inv_quantity_on_hand ELSE 0 END) AS inv_after
-    FROM inventory inv
-    JOIN warehouse w ON inv.inv_warehouse_sk = w.w_warehouse_sk
-    JOIN item i ON inv.inv_item_sk = i.i_item_sk
-    JOIN date_dim d ON inv.inv_date_sk = d.d_date_sk
+    FROM postgresql.public.inventory inv
+    JOIN mongodb.sf1.warehouse w ON inv.inv_warehouse_sk = w.w_warehouse_sk
+    JOIN mongodb.sf1.item i ON inv.inv_item_sk = i.i_item_sk
+    JOIN postgresql.public.date_dim d ON inv.inv_date_sk = d.d_date_sk
     CROSS JOIN params p
     WHERE i.i_current_price BETWEEN 0.99 AND 1.49
       AND DATE_TRUNC('day', CAST(d.d_date AS DATE)) BETWEEN (p.sales_date - INTERVAL '30' DAY) AND (p.sales_date + INTERVAL '30' DAY)
