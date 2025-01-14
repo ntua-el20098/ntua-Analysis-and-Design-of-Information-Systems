@@ -17,7 +17,7 @@ cs AS
         SUM(cs_wholesale_cost) cs_wc,
         SUM(cs_sales_price) cs_sp
      FROM mongodb.sf1.catalog_sales
-     LEFT JOIN catalog_returns ON cr_order_number=cs_order_number AND cs_item_sk=cr_item_sk
+     LEFT JOIN postgresql.public.catalog_returns ON cr_order_number=cs_order_number AND cs_item_sk=cr_item_sk
      JOIN postgresql.public.date_dim ON cs_sold_date_sk = d_date_sk
      WHERE cr_order_number IS NULL
      GROUP BY d_year, cs_item_sk, cs_bill_customer_sk
