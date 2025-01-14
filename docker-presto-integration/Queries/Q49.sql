@@ -62,7 +62,7 @@ SELECT channel, item, return_ratio, return_rank, currency_rank FROM
         ,(CAST(SUM(COALESCE(cr.cr_return_amount,0)) AS DECIMAL(15,4))/
         CAST(SUM(COALESCE(cs.cs_net_paid,0)) AS DECIMAL(15,4) )) AS currency_ratio
         FROM 
-        mongodb.sf1.catalog_sales cs LEFT OUTER JOIN catalog_returns cr
+        mongodb.sf1.catalog_sales cs LEFT OUTER JOIN postgresql.public.catalog_returns cr
             ON (cs.cs_order_number = cr.cr_order_number AND 
             cs.cs_item_sk = cr.cr_item_sk)
                 ,postgresql.public.date_dim
