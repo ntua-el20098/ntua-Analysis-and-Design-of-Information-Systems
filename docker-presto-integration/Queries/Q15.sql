@@ -6,10 +6,10 @@ WITH customer_sales AS (
         ca_zip,
         SUM(cs_sales_price) AS total_sales
     FROM 
-        catalog_sales cs, 
-        customer c, 
-        customer_address ca, 
-        date_dim d
+        mongodb.sf1.catalog_sales cs, 
+        cassandra.keyspace_sf1.customer c, 
+        cassandra.keyspace_sf1.customer_address ca, 
+        postgresql.public.date_dim d
     WHERE 
         cs.cs_bill_customer_sk = c.c_customer_sk 
         AND c.c_current_addr_sk = ca.ca_address_sk 
