@@ -15,8 +15,8 @@ aggregated_data AS (
             ss_item_sk,
             SUM(ss_sales_price) AS revenue
         FROM 
-            store_sales, 
-            date_dim, 
+            postgresql.public.store_sales, 
+            postgresql.public.date_dim, 
             params
         WHERE 
             ss_sold_date_sk = d_date_sk 
@@ -35,8 +35,8 @@ revenue_data AS (
         ss_item_sk,
         SUM(ss_sales_price) AS revenue
     FROM 
-        store_sales, 
-        date_dim, 
+        postgresql.public.store_sales, 
+        postgresql.public.date_dim, 
         params
     WHERE 
         ss_sold_date_sk = d_date_sk 
@@ -54,8 +54,8 @@ SELECT
     i_wholesale_cost,
     i_brand
 FROM 
-    store, 
-    item, 
+    mongodb.sf1.store, 
+    mongodb.sf1.item, 
     aggregated_data sb, 
     revenue_data sc
 WHERE 
