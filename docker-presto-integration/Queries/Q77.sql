@@ -2,7 +2,7 @@ WITH ss AS
  (SELECT s_store_sk,
                         SUM(ss_ext_sales_price) AS sales,
                         SUM(ss_net_profit) AS profit
- FROM postsgresql.public.store_sales,
+ FROM postgresql.public.store_sales,
                postgresql.public.date_dim,
                mongodb.sf1.store
  WHERE ss_sold_date_sk = d_date_sk
