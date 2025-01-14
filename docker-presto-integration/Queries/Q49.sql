@@ -123,4 +123,4 @@ SELECT channel, item, return_ratio, return_rank, currency_rank FROM
  )
  )
  ORDER BY 1,4,5,2
- LIMIT 100;
+ LIMIT 100
