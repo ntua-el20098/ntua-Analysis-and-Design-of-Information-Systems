@@ -13,9 +13,9 @@ customer_total_return AS (
         ca_state AS ctr_state,
         SUM(wr_return_amt) AS ctr_total_return
     FROM 
-        web_returns,
-        date_dim,
-        customer_address,
+        cassandra.keyspace_sf1.web_returns,
+        postgresql.public.date_dim,
+        cassandra.keyspace_sf1.customer_address,
         params
     WHERE 
         wr_returned_date_sk = d_date_sk
@@ -41,8 +41,8 @@ SELECT
     ctr_total_return
 FROM 
     customer_total_return ctr1,
-    customer_address,
-    customer,
+    cassandra.keyspace_sf1.customer_address,
+    cassandra.keyspace_sf1.customer,
     params
 WHERE 
     ctr1.ctr_total_return > (
