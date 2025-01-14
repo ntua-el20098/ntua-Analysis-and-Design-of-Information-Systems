@@ -52,4 +52,4 @@ ORDER BY
     other_chan_wholesale_cost,
     other_chan_sales_price,
     ratio
-LIMIT 100;
+LIMIT 100
