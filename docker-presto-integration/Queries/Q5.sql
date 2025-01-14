@@ -53,10 +53,10 @@ with ssr as
           cast(0 as decimal(7,2)) as profit,
           cr_return_amount as return_amt,
           cr_net_loss as net_loss
-    from catalog_returns
+    from postsgresql.public.catalog_returns
    ) salesreturns,
      postgresql.public.date_dim,
-     catalog_page
+     mongodb.sf1.catalog_page
  where date_sk = d_date_sk
        and DATE_TRUNC('day', d_date) between DATE_TRUNC('day', cast('1998-08-04' as date))
                 and (DATE_TRUNC('day', cast('1998-08-04' as date)) + INTERVAL '14' DAY)
