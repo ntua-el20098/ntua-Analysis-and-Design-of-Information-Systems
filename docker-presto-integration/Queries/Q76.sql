@@ -9,7 +9,7 @@ WITH sales_data AS (
         d_qoy, 
         i_category, 
         ss_ext_sales_price AS ext_sales_price
-    FROM store_sales, item, date_dim
+    FROM postgresql.public.store_sales, mongodb.sf1.item, postgresql.public.date_dim
     WHERE ss_customer_sk IS NULL
       AND ss_cdemo_sk IS NULL
       AND ss_hdemo_sk IS NULL
@@ -29,7 +29,7 @@ WITH sales_data AS (
         d_qoy, 
         i_category, 
         ws_ext_sales_price AS ext_sales_price
-    FROM web_sales, item, date_dim
+    FROM postgresql.public.web_sales, mongodb.sf1.item, postgresql.public.date_dim
     WHERE ws_bill_customer_sk IS NULL
       AND ws_bill_hdemo_sk IS NULL
       AND ws_bill_addr_sk IS NULL
@@ -55,7 +55,7 @@ WITH sales_data AS (
         d_qoy, 
         i_category, 
         cs_ext_sales_price AS ext_sales_price
-    FROM catalog_sales, item, date_dim
+    FROM mongodb.sf1.catalog_sales, mongodb.sf1.item, postgresql.public.date_dim
     WHERE cs_bill_customer_sk IS NULL
       AND cs_bill_hdemo_sk IS NULL
       AND cs_bill_addr_sk IS NULL
