@@ -19,10 +19,10 @@ SELECT channel, item, return_ratio, return_rank, currency_rank FROM
         ,(CAST(SUM(COALESCE(wr.wr_return_amt,0)) AS DECIMAL(15,4))/
         CAST(SUM(COALESCE(ws.ws_net_paid,0)) AS DECIMAL(15,4) )) AS currency_ratio
         FROM 
-         web_sales ws LEFT OUTER JOIN web_returns wr 
+         postgresql.public.web_sales ws LEFT OUTER JOIN cassandra.keyspace_sf1.web_returns wr 
             ON (ws.ws_order_number = wr.wr_order_number AND 
             ws.ws_item_sk = wr.wr_item_sk)
-                 ,date_dim
+                 ,postgresql.public.date_dim
         WHERE 
             wr.wr_return_amt > 10000 
             AND ws.ws_net_profit > 1
@@ -62,10 +62,10 @@ SELECT channel, item, return_ratio, return_rank, currency_rank FROM
         ,(CAST(SUM(COALESCE(cr.cr_return_amount,0)) AS DECIMAL(15,4))/
         CAST(SUM(COALESCE(cs.cs_net_paid,0)) AS DECIMAL(15,4) )) AS currency_ratio
         FROM 
-        catalog_sales cs LEFT OUTER JOIN catalog_returns cr
+        mongodb.sf1.catalog_sales cs LEFT OUTER JOIN catalog_returns cr
             ON (cs.cs_order_number = cr.cr_order_number AND 
             cs.cs_item_sk = cr.cr_item_sk)
-                ,date_dim
+                ,postgresql.public.date_dim
         WHERE 
             cr.cr_return_amount > 10000 
             AND cs.cs_net_profit > 1
