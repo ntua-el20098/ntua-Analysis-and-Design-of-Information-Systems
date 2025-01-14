@@ -53,7 +53,7 @@ with ssr as
           cast(0 as decimal(7,2)) as profit,
           cr_return_amount as return_amt,
           cr_net_loss as net_loss
-    from postsgresql.public.catalog_returns
+    from postgresql.public.catalog_returns
    ) salesreturns,
      postgresql.public.date_dim,
      mongodb.sf1.catalog_page
