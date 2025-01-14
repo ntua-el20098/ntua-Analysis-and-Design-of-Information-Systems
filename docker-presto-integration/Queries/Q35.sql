@@ -22,7 +22,7 @@ WITH customer_sales AS (
         MIN(CASE WHEN cd_dep_college_count IS NOT NULL THEN cd_dep_college_count ELSE NULL END) AS min_cd_dep_college_count,  -- AGGTWO for cd_dep_college_count
         MAX(CASE WHEN cd_dep_college_count IS NOT NULL THEN cd_dep_college_count ELSE NULL END) AS max_cd_dep_college_count  -- AGGTHREE for cd_dep_college_count
     FROM 
-        customer c, customer_address ca, customer_demographics cd
+        cassandra.keyspace_sf1.customer c, cassandra.keyspace_sf1.customer_address ca, postgresql.public.customer_demographics cd
     WHERE 
         c.c_current_addr_sk = ca.ca_address_sk 
         AND cd.cd_demo_sk = c.c_current_cdemo_sk
