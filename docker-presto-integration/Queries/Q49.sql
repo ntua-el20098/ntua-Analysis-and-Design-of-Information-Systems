@@ -102,9 +102,9 @@ SELECT channel, item, return_ratio, return_rank, currency_rank FROM
         ,(CAST(SUM(COALESCE(sr.sr_return_quantity,0)) AS DECIMAL(15,4))/CAST(SUM(COALESCE(sts.ss_quantity,0)) AS DECIMAL(15,4) )) AS return_ratio
         ,(CAST(SUM(COALESCE(sr.sr_return_amt,0)) AS DECIMAL(15,4))/CAST(SUM(COALESCE(sts.ss_net_paid,0)) AS DECIMAL(15,4) )) AS currency_ratio
         FROM 
-        store_sales sts LEFT OUTER JOIN store_returns sr
+        postgresql.public.store_sales sts LEFT OUTER JOIN store_returns sr
             ON (sts.ss_ticket_number = sr.sr_ticket_number AND sts.ss_item_sk = sr.sr_item_sk)
-                ,date_dim
+                ,postgresql.public.date_dim
         WHERE 
             sr.sr_return_amt > 10000 
             AND sts.ss_net_profit > 1
