@@ -10,8 +10,8 @@ web_v1 AS (
            d_date,
            SUM(SUM(ws_sales_price)) 
                OVER (PARTITION BY ws_item_sk ORDER BY d_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cume_sales
-    FROM web_sales,
-         date_dim,
+    FROM postgresql.public.web_sales,
+         postgresql.public.date_dim,
          params p
     WHERE ws_sold_date_sk = d_date_sk
       AND d_month_seq BETWEEN p.dms AND p.dms + 11 -- Use the DMS value from the params
@@ -23,8 +23,8 @@ store_v1 AS (
            d_date,
            SUM(SUM(ss_sales_price)) 
                OVER (PARTITION BY ss_item_sk ORDER BY d_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cume_sales
-    FROM store_sales,
-         date_dim,
+    FROM postgresql.public.store_sales,
+         postgresql.public.date_dim,
          params p
     WHERE ss_sold_date_sk = d_date_sk
       AND d_month_seq BETWEEN p.dms AND p.dms + 11 -- Use the DMS value from the params
