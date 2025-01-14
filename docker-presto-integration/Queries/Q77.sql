@@ -2,9 +2,9 @@ WITH ss AS
  (SELECT s_store_sk,
                         SUM(ss_ext_sales_price) AS sales,
                         SUM(ss_net_profit) AS profit
- FROM store_sales,
+ FROM postsgresql.public.store_sales,
                postgresql.public.date_dim,
-               store
+               mongodb.sf1.store
  WHERE ss_sold_date_sk = d_date_sk
                 AND DATE_TRUNC('day', d_date) BETWEEN DATE_TRUNC('day', DATE '1998-08-04') 
                                                    AND (DATE_TRUNC('day', DATE '1998-08-04') + INTERVAL '30' DAY) 
@@ -15,9 +15,9 @@ WITH ss AS
  (SELECT s_store_sk,
                         SUM(sr_return_amt) AS returns,
                         SUM(sr_net_loss) AS profit_loss
- FROM store_returns,
+ FROM mongodb.sf1.store_returns,
                postgresql.public.date_dim,
-               store
+               mongodb.sf1.store
  WHERE sr_returned_date_sk = d_date_sk
                 AND DATE_TRUNC('day', d_date) BETWEEN DATE_TRUNC('day', DATE '1998-08-04')
                                                    AND (DATE_TRUNC('day', DATE '1998-08-04') + INTERVAL '30' DAY)
@@ -49,9 +49,9 @@ WITH ss AS
  ( SELECT wp_web_page_sk,
                        SUM(ws_ext_sales_price) AS sales,
                        SUM(ws_net_profit) AS profit
- FROM web_sales,
+ FROM postgresql.public.web_sales,
                postgresql.public.date_dim,
-               web_page
+               cassandra.keyspace_sf1.web_page
  WHERE ws_sold_date_sk = d_date_sk
                 AND DATE_TRUNC('day', d_date) BETWEEN DATE_TRUNC('day', DATE '1998-08-04')
                                                    AND (DATE_TRUNC('day', DATE '1998-08-04') + INTERVAL '30' DAY)
@@ -61,9 +61,9 @@ WITH ss AS
  (SELECT wp_web_page_sk,
                        SUM(wr_return_amt) AS returns,
                        SUM(wr_net_loss) AS profit_loss
- FROM web_returns,
+ FROM cassandra.keyspace_sf1.web_returns,
                postgresql.public.date_dim,
-               web_page
+               cassandra.keyspace_sf1.web_page
  WHERE wr_returned_date_sk = d_date_sk
                 AND DATE_TRUNC('day', d_date) BETWEEN DATE_TRUNC('day', DATE '1998-08-04')
                                                    AND (DATE_TRUNC('day', DATE '1998-08-04') + INTERVAL '30' DAY)
