@@ -14,7 +14,7 @@ with ssr as
            ss_net_profit as profit,
            cast(0 as decimal(7,2)) as return_amt,
            cast(0 as decimal(7,2)) as net_loss
-    from store_sales
+    from postgresql.public.store_sales
     union all
     select sr_store_sk as store_sk,
           sr_returned_date_sk as date_sk,
@@ -22,10 +22,10 @@ with ssr as
           cast(0 as decimal(7,2)) as profit,
           sr_return_amt as return_amt,
           sr_net_loss as net_loss
-    from store_returns
+    from mongodb.sf1.store_returns
    ) salesreturns,
-     date_dim,
-     store
+     postgresql.public.date_dim,
+     mongodb.sf1.store
  where date_sk = d_date_sk
        and DATE_TRUNC('day', d_date) between DATE_TRUNC('day', cast('1998-08-04' as date)) 
                 and (DATE_TRUNC('day', cast('1998-08-04' as date)) + INTERVAL '14' DAY)
@@ -45,7 +45,7 @@ with ssr as
            cs_net_profit as profit,
            cast(0 as decimal(7,2)) as return_amt,
            cast(0 as decimal(7,2)) as net_loss
-    from catalog_sales
+    from mongodb.sf1.catalog_sales
     union all
     select cr_catalog_page_sk as page_sk,
           cr_returned_date_sk as date_sk,
@@ -55,7 +55,7 @@ with ssr as
           cr_net_loss as net_loss
     from catalog_returns
    ) salesreturns,
-     date_dim,
+     postgresql.public.date_dim,
      catalog_page
  where date_sk = d_date_sk
        and DATE_TRUNC('day', d_date) between DATE_TRUNC('day', cast('1998-08-04' as date))
@@ -76,7 +76,7 @@ with ssr as
            ws_net_profit as profit,
            cast(0 as decimal(7,2)) as return_amt,
            cast(0 as decimal(7,2)) as net_loss
-    from web_sales
+    from postgresql.public.web_sales
     union all
     select ws_web_site_sk as wsr_web_site_sk,
           wr_returned_date_sk as date_sk,
@@ -84,12 +84,12 @@ with ssr as
           cast(0 as decimal(7,2)) as profit,
           wr_return_amt as return_amt,
           wr_net_loss as net_loss
-    from web_returns left outer join web_sales on
+    from cassandra.keyspace_sf1.web_returns left outer join postgresql.public.web_sales on
         ( wr_item_sk = ws_item_sk
           and wr_order_number = ws_order_number)
    ) salesreturns,
-     date_dim,
-     web_site
+     postgresql.public.date_dim,
+     cassandra.keyspace_sf1.web_site
  where date_sk = d_date_sk
        and DATE_TRUNC('day', d_date) between DATE_TRUNC('day', cast('1998-08-04' as date))
                 and (DATE_TRUNC('day', cast('1998-08-04' as date)) + INTERVAL '14' DAY)
