@@ -12,10 +12,10 @@ WITH
         SUM(ws1.ws_ext_ship_cost) AS "total shipping cost",
         SUM(ws1.ws_net_profit) AS "total net profit"
     FROM 
-        web_sales ws1,
-        date_dim,
-        customer_address ca,
-        web_site ws,
+        postgresql.public.web_sales ws1,
+        postgresql.public.date_dim,
+        cassandra.keyspace_sf1.customer_address ca,
+        cassandra.keyspace_sf1.web_site ws,
         year,
         month,
         state
@@ -31,13 +31,13 @@ WITH
         AND TRIM(ws.web_company_name) = 'pri'
         AND EXISTS (
             SELECT 1
-            FROM web_sales ws2
+            FROM postgresql.public.web_sales ws2
             WHERE ws1.ws_order_number = ws2.ws_order_number
               AND ws1.ws_warehouse_sk <> ws2.ws_warehouse_sk
         )
         AND NOT EXISTS (
             SELECT 1
-            FROM web_returns wr1
+            FROM cassandra.keyspace_sf1.web_returns wr1
             WHERE ws1.ws_order_number = wr1.wr_order_number
         )
   )
