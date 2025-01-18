@@ -1,0 +1,17 @@
+suite   query   wallTimeP50     wallTimeMean    wallTimeStd     processCpuTimeP50       processCpuTimeMean      processCpuTimeStd       queryCpuTimeP50 queryCpuTimeMean     queryCpuTimeStd status  error
+tpcds_combined_sf1_w1   Q1      830     844     40      4750    4676    209     1300    1293    23      pass
+tpcds_combined_sf1_w1   Q30     2094    1833    511     9590    9500    639     2452    2397    149     pass
+tpcds_combined_sf1_w1   Q15     2506    2500    54      10260   10286   520     3160    3142    122     pass
+tpcds_combined_sf1_w1   Q51     3021    2984    90      12400   12703   1165    6159    6170    297     pass
+tpcds_combined_sf1_w1   Q65     2807    2790    30      11270   11150   280     5484    5486    25      pass
+
+tpcds_combined_sf1_w1   Q76     831     831     42      3180    3073    304     669     633     156     pass
+tpcds_combined_sf1_w1   Q94     1675    1690    90      7820    7966    325     2870    2871    129     pass
+tpcds_combined_sf1_w1   Q49     3404    3424    136     12870   12746   1548    3411    3416    16      pass
+tpcds_combined_sf1_w1   Q35     2876    2880    109     14230   14266   705     6018    6115    174     pass
+tpcds_combined_sf1_w1   Q77     3869    3774    168     20230   18990   2367    6149    6243    250     pass
+
+tpcds_combined_sf1_w1   Q21     8046    8086    194     22670   22610   393     10799   10823   47      pass
+tpcds_combined_sf1_w1   Q5      3750    3764    129     17820   17476   701     6907    6863    110     pass
+tpcds_combined_sf1_w1   Q78     5184    5229    576     34300   33020   3538    12663   12829   525     pass
+tpcds_combined_sf1_w1   Q39     9194    9287    240     62920   63810   1843    30518   30560   306     pass

@@ -1,0 +1,17 @@
+suite   query   wallTimeP50     wallTimeMean    wallTimeStd     processCpuTimeP50       processCpuTimeMean      processCpuTimeStd       queryCpuTimeP50 queryCpuTimeMean     queryCpuTimeStd status  error
+tpcds_cassandra_sf1     Q1      6313    6205    385     7350    7346    125     1681    1683    44      pass
+tpcds_cassandra_sf1     Q30     3334    3601    684     8550    8776    427     2813    2824    131     pass
+tpcds_cassandra_sf1     Q15     12965   12777   445     16320   16663   701     6240    6233    222     pass
+tpcds_cassandra_sf1     Q51     33964   34116   373     38310   38056   620     11247   11190   402     pass
+tpcds_cassandra_sf1     Q65     50161   50374   970     41730   41316   1118    11421   11361   403     pass
+
+tpcds_cassandra_sf1     Q76     46218   45860   1302    42790   44263   2700    3757    3723    192     pass
+tpcds_cassandra_sf1     Q94     13469   13413   196     18340   18620   932     5547    5568    466     pass
+tpcds_cassandra_sf1     Q49     46971   46864   640     46520   46446   623     5571    5601    70      pass
+tpcds_cassandra_sf1     Q35     60763   60553   419     61360   61393   790     11897   11902   15      pass
+tpcds_cassandra_sf1     Q77     45236   45466   737     81460   82030   2191    47401   47349   182     pass
+
+tpcds_cassandra_sf1     Q21     88745   87765   1922    92590   92216   975     24813   24870   155     pass
+tpcds_cassandra_sf1     Q5      53035   53210   330     49050   48723   1496    8985    8928    161     pass
+tpcds_cassandra_sf1     Q78     46557   47000   1585    55580   56083   2051    18492   18514   763     pass
+tpcds_cassandra_sf1     Q39     201512  201056  2082    222750  222663  13260   68285   69055   2123    pass

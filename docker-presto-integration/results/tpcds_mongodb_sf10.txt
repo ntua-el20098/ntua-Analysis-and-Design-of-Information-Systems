@@ -1,0 +1,17 @@
+suite   query   wallTimeP50     wallTimeMean    wallTimeStd     processCpuTimeP50       processCpuTimeMean      processCpuTimeStd       queryCpuTimeP50 queryCpuTimeMean     queryCpuTimeStd status  error
+tpcds_mongodb_sf10      Q1      8023    8165    334     31930   33576   3946    14562   14928   954     pass
+tpcds_mongodb_sf10      Q30     5129    5102    587     33770   33566   3529    10919   10863   635     pass
+tpcds_mongodb_sf10      Q15     62178   61525   2810    83570   85423   4552    29443   29730   1577    pass
+tpcds_mongodb_sf10      Q51     0       0       0       0       0       0       0       0       0       fail    Query exceeded per-node user memory limit of 307.20MB [Allocated: 307.19MB, Delta: 15.39kB (HashBuilderOperator), Top Consumers: {SpillablePagesToPagesIndexes=290.35MB, HashBuilderOperator=16.84MB, SpillableHashAggregationBuilder=7.17MB}, Details: [{"taskId":"2.0.0","reservation":"307.20MB","topConsumers":[{"type":"WindowOperator","planNodeId":"38","reservations":["14.49MB","14.46MB","14.23MB","14.22MB","14.18MB","14.17MB","14.16MB","14.06MB","14.06MB","14.06MB","14.05MB","13.99MB","13.99MB","13.95MB","13.94MB","13.91MB"],"total":"225.90MB"},{"type":"WindowOperator","planNodeId":"16","reservations":["4.14MB","4.13MB","4.06MB","4.05MB","4.05MB","4.05MB","4.05MB","4.01MB","4.01MB","4.00MB","4.00MB","4.00MB","3.99MB","3.98MB","3.98MB","3.96MB"],"total":"64.45MB"},{"type":"HashBuilderOperator","planNodeId":"46","reservations":["1.06MB","1.06MB","1.06MB","1.06MB","1.06MB","1.06MB","1.05MB","1.05MB","1.05MB","1.05MB","1.05MB","1.05MB","1.05MB","1.04MB","1.04MB","1.04MB"],"total":"16.84MB","info":"FULL;PARTITIONED;"}]}]]
+tpcds_mongodb_sf10      Q65     115180  116953  3329    322440  317333  10515   134466  134029  1121    pass
+
+tpcds_mongodb_sf10      Q76     35595   35650   966     17340   18906   6845    1154    1130    47      pass
+tpcds_mongodb_sf10      Q94     29119   32568   7396    125290  124776  12717   36590   35133   4772    pass
+tpcds_mongodb_sf10      Q49     92204   91673   3666    102760  108930  12522   23737   23557   378     pass
+tpcds_mongodb_sf10      Q35     84591   84766   3725    229640  233100  32349   50080   50247   2210    pass
+tpcds_mongodb_sf10      Q77     121724  122235  8239    245810  256216  38062   67782   67912   457     pass
+
+tpcds_mongodb_sf10      Q21     269607  269292  1762    594560  592750  20963   218028  217524  1143    pass
+tpcds_mongodb_sf10      Q5      181466  179211  4311    369070  371113  21438   120855  120522  696     pass
+tpcds_mongodb_sf10      Q78     225924  226252  4516    603950  606216  28178   242335  241389  4903    pass
+tpcds_mongodb_sf10      Q39     335201  355337  47150   1950320 2025873 202653  660905  717202  121791  pass

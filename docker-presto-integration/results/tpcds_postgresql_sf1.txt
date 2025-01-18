@@ -1,0 +1,17 @@
+suite   query   wallTimeP50     wallTimeMean    wallTimeStd     processCpuTimeP50       processCpuTimeMean      processCpuTimeStd       queryCpuTimeP50 queryCpuTimeMean     queryCpuTimeStd status  error
+tpcds_postgresql_sf1    Q1      777     776     16      3120    3146    171     1416    1341    134     pass
+tpcds_postgresql_sf1    Q30     1016    1017    16      3970    3996    400     1627    1692    153     pass
+tpcds_postgresql_sf1    Q15     1620    1599    38      3820    3853    231     2027    2004    133     pass	
+tpcds_postgresql_sf1    Q51     3589    3632    118     11690   11516   902     7048    6979    465     pass
+tpcds_postgresql_sf1    Q65     3330    3283    121     10580   10393   650     5912    5896    149     pass
+
+tpcds_postgresql_sf1    Q76     902     902     10      2160    2383    466     569     591     57      pass
+tpcds_postgresql_sf1    Q94     1835    1854    126     5720    5906    973     2678    2650    58      pass
+tpcds_postgresql_sf1    Q49     3473    3489    63      8240    8226    540     3977    3974    51      pass
+tpcds_postgresql_sf1    Q35     3370    3337    113     11330   11313   935     6416    6375    215     pass
+tpcds_postgresql_sf1    Q77     4453    4514    209     14370   14830   849     7421    7538    252     pass
+
+tpcds_postgresql_sf1    Q21     9723    9701    43      26380   25510   2141    12774   12920   268     pass
+tpcds_postgresql_sf1    Q5      4430    4427    136     14280   14723   909     7709    7742    225     pass
+tpcds_postgresql_sf1    Q78     5451    5438    123     22570   23340   1564    12693   12658   372     pass
+tpcds_postgresql_sf1    Q39     11982   12062   547     63740   64560   2888    39031   38964   1863    pass

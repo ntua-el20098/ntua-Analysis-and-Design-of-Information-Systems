@@ -1,0 +1,17 @@
+suite   query   wallTimeP50     wallTimeMean    wallTimeStd     processCpuTimeP50       processCpuTimeMean      processCpuTimeStd       queryCpuTimeP50 queryCpuTimeMean     queryCpuTimeStd status  error
+tpcds_mongodb_sf1       Q1      1136    1141    53      6010    6140    430     1936    1952    49      pass
+tpcds_mongodb_sf1       Q30     1270    1270    38      5650    6136    984     2191    2220    101     pass
+tpcds_mongodb_sf1       Q15     3666    3692    62      8480    8640    645     4679    4779    175     pass
+tpcds_mongodb_sf1       Q51     8127    8148    84      28430   28616   611     10768   10837   219     pass
+tpcds_mongodb_sf1       Q65     8380    8395    123     38950   38750   3564    12450   12434   43      pass
+
+tpcds_mongodb_sf1       Q76     1775    1808    154     4030    4036    1650    550     551     30      pass
+tpcds_mongodb_sf1       Q94     3342    3361    42      10560   10506   1080    4462    4617    341     pass
+tpcds_mongodb_sf1       Q49     5300    5551    617     9980    10460   1925    3681    3661    104     pass
+tpcds_mongodb_sf1       Q35     8277    8254    997     45800   43890   15901   13618   13093   1238    pass
+tpcds_mongodb_sf1       Q77     47958   47929   103     100910  100673  1906    48972   48960   138     pass
+
+tpcds_mongodb_sf1       Q21     28019   27833   889     61400   57940   6360    28731   28689   491     pass
+tpcds_mongodb_sf1       Q5      9647    9622    204     43610   42946   1592    13042   13001   168     pass
+tpcds_mongodb_sf1       Q78     12432   12244   440     63060   63216   10235   22563   22733   384     pass
+tpcds_mongodb_sf1       Q39     32273   31955   646     183540  179623  7416    74061   74288   734     pass
