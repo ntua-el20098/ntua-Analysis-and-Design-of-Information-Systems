@@ -1,0 +1,132 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+def plot_benchmark_results_by_group(parsed_results, metric_column, ylabel, title, query_groups):
+    """
+    Plots benchmark results as grouped bar charts for each query group across databases.
+
+    Parameters:
+    - parsed_results (dict): Dictionary with database names as keys and DataFrames as values.
+    - metric_column (str): The column to use for the y-axis values.
+    - ylabel (str): Label for the y-axis.
+    - title (str): Title of the plot.
+    - query_groups (dict): A dictionary where keys are group names and values are lists of queries.
+    """
+    combined_data = []
+    for db, data in parsed_results.items():
+        data["database"] = db  # Add a column to identify the database
+        combined_data.append(data)
+
+    combined_df = pd.concat(combined_data)
+
+    for group_name, queries in query_groups.items():
+        group_df = combined_df[combined_df["query"].isin(queries)]
+
+        # Pivot the data for grouped bar plotting
+        pivot_df = group_df.pivot(
+            index="query", columns="database", values=metric_column
+        )
+
+        # Plot the grouped bar chart
+        pivot_df.plot(kind="bar", figsize=(12, 6), width=0.8)
+        plt.xlabel("Query")
+        plt.ylabel(ylabel)
+        plt.title(f"{title} - {group_name}")
+        plt.xticks(rotation=45, ha="right")
+        plt.legend(title="Database")
+        plt.tight_layout()
+        plt.savefig(f"{title} - {group_name}.png")
+        plt.show()
+
+
+def parse_benchmark_results(file_paths, columns_to_extract):
+    """
+    Parses benchmark result files and extracts specific columns for given databases.
+
+    Parameters:
+    - file_paths (dict): A dictionary where keys are database names and values are file paths.
+    - columns_to_extract (list): List of columns to extract.
+
+    Returns:
+    - dict: A dictionary with database names as keys and DataFrames as values.
+    """
+    result = {}
+    for db, file_path in file_paths.items():
+        try:
+            # Read the input file with tab-delimited separator
+            df = pd.read_csv(file_path, delim_whitespace=True)
+
+            # Extract relevant columns
+            result[db] = df[columns_to_extract]
+        except Exception as e:
+            print(f"Error reading file {file_path}: {e}")
+    
+    print (result)
+    return result
+
+if __name__ == "__main__":
+
+    # Define input parameters
+    root_path = r"C:\Users\koust\ECE\9th_Semester\SystemAnalysis\ntua-Analysis-and-Design-of-Information-Systems\docker-presto-integration\results"
+    file_paths_sf1 = {
+        "postgresql_sf1": root_path + r"\tpcds_postgresql_sf1.txt",
+        "mongo_sf1": root_path + r"\tpcds_mongodb_sf1.txt",
+        "cassandra_sf1":root_path + r"\tpcds_cassandra_sf1.txt",
+    }
+    file_paths_sf10 = {
+        "postgresql_sf10": root_path + r"\tpcds_postgresql_sf10.txt",
+        "mongo_sf10": root_path + r"\tpcds_mongodb_sf10.txt",
+        "cassandra_sf10": root_path + r"\tpcds_cassandra_sf10.txt",
+    }
+
+    columns_to_extract = ["query", "processCpuTimeMean", "queryCpuTimeMean"]
+
+    # Parse the files
+    parsed_results_sf1 = parse_benchmark_results(file_paths_sf1, columns_to_extract)
+    parsed_results_sf10 = parse_benchmark_results(file_paths_sf10, columns_to_extract)
+
+    query_groups = {
+        "Lightweight": ["Q65", "Q51", "Q15", "Q30", "Q1"],
+        "Midweight": ["Q77", "Q35", "Q49", "Q94", "Q76"],
+        "Heavyweight": ["Q39", "Q78", "Q5", "Q21"],
+    }
+
+    # Plot the results
+
+    # Plot results for Query CPU Time Mean grouped by query type
+    plot_benchmark_results_by_group(
+        parsed_results_sf1,
+        metric_column="queryCpuTimeMean",
+        ylabel="Query CPU Time Mean",
+        title="Query CPU Time Mean by Database(SF1)",
+        query_groups=query_groups,
+    )
+
+    # Plot results for Process CPU Time Mean grouped by query type
+    plot_benchmark_results_by_group(
+        parsed_results_sf1,
+        metric_column="processCpuTimeMean",
+        ylabel="Process CPU Time Mean",
+        title="Process CPU Time Mean by Database(SF1)",
+        query_groups=query_groups,
+    )
+
+    # For SF10
+    # Plot results for Query CPU Time Mean grouped by query type
+    plot_benchmark_results_by_group(
+        parsed_results_sf10,
+        metric_column="queryCpuTimeMean",
+        ylabel="Query CPU Time Mean",
+        title="Query CPU Time Mean by Database (SF10)",
+        query_groups=query_groups,
+    )
+
+    # Plot results for Process CPU Time Mean grouped by query type
+    plot_benchmark_results_by_group(
+        parsed_results_sf10,
+        metric_column="processCpuTimeMean",
+        ylabel="Process CPU Time Mean",
+        title="Process CPU Time Mean by Database (SF10)",
+        query_groups=query_groups,
+    )
