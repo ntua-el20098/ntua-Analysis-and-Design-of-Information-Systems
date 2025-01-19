@@ -4,13 +4,11 @@ tpcds_postgresql_sf10   Q30     5802    5705    428     30720   30083   2996    
 tpcds_postgresql_sf10   Q15     18161   18463   819     42980   42836   510     27113   26984   224     pass
 tpcds_postgresql_sf10   Q51     0       0       0       0       0       0       0       0       0       fail    Query exceeded per-node user memory limit of 307.20MB [Allocated: 307.20MB, Delta: 16.64kB (HashBuilderOperator), Top Consumers: {SpillablePagesToPagesIndexes=293.25MB, SpillableHashAggregationBuilder=22.62MB, HashBuilderOperator=13.95MB}, Details: [{"taskId":"2.0.0","reservation":"307.22MB","topConsumers":[{"type":"WindowOperator","planNodeId":"38","reservations":["16.75MB","16.44MB","16.42MB","16.37MB","16.36MB","16.24MB","16.23MB","16.23MB","16.22MB","16.14MB","16.14MB","16.10MB","16.08MB","16.05MB","4kB","0B"],"total":"227.79MB"},{"type":"WindowOperator","planNodeId":"16","reservations":["4.81MB","4.80MB","4.71MB","4.71MB","4.70MB","4.70MB","4.65MB","4.65MB","4.64MB","4.64MB","4.63MB","4.62MB","4.62MB","4.59MB","0B","0B"],"total":"65.47MB"},{"type":"HashBuilderOperator","planNodeId":"46","reservations":["922.28kB","911.12kB","905.74kB","905.46kB","902.33kB","901.66kB","901.59kB","901.01kB","900.84kB","899.73kB","899.71kB","897.40kB","896.22kB","895.38kB","891.67kB","750.74kB"],"total":"13.95MB","info":"FULL;PARTITIONED;"}]}]]
 tpcds_postgresql_sf10   Q65     49839   51639   3488    215780  217333  2760    117868  117934  1170    pass
-
 tpcds_postgresql_sf10   Q76     21318   21187   306     12260   12296   63      1820    1795    105     pass
 tpcds_postgresql_sf10   Q94     20150   20147   61      57930   57490   1364    31384   31473   1420    pass
 tpcds_postgresql_sf10   Q49     41778   42488   3873    83350   82153   9809    53660   53070   4024    pass
 tpcds_postgresql_sf10   Q35     38665   38708   298     83500   84930   2722    52995   54081   2019    pass
 tpcds_postgresql_sf10   Q77     56930   56585   657     129550  130976  2699    77400   77657   749     pass
-
 tpcds_postgresql_sf10   Q21     164354  164251  1457    390210  392553  9836    205845  205287  1195    pass
 tpcds_postgresql_sf10   Q5      64194   63776   733     173670  174090  2556    94042   94441   748     pass
 tpcds_postgresql_sf10   Q78     93114   93995   2417    538220  537126  3270    250533  249568  1945    pass
