@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 
 def plot_benchmark_results_by_group(parsed_results, metric_column, ylabel, title, query_groups):
@@ -13,6 +14,10 @@ def plot_benchmark_results_by_group(parsed_results, metric_column, ylabel, title
     - title (str): Title of the plot.
     - query_groups (dict): A dictionary where keys are group names and values are lists of queries.
     """
+    # Create the 'plots' folder if it doesn't exist
+    plots_dir = os.path.join(os.getcwd(), "plots")
+    os.makedirs(plots_dir, exist_ok=True)
+
     combined_data = []
     for db, data in parsed_results.items():
         data["database"] = db  # Add a column to identify the database
@@ -38,7 +43,10 @@ def plot_benchmark_results_by_group(parsed_results, metric_column, ylabel, title
         plt.xticks(rotation=45, ha="right")
         plt.legend(title="Database")
         plt.tight_layout()
-        plt.savefig(f"{title} - {group_name}.png")
+
+        # Save the plot in the 'plots' folder
+        plot_path = os.path.join(plots_dir, f"{title} - {group_name}.png")
+        plt.savefig(plot_path)
         plt.show()
 
 def parse_benchmark_results(file_paths, columns_to_extract):
