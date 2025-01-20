@@ -24,9 +24,11 @@ def plot_benchmark_results_by_group(parsed_results, metric_column, ylabel, title
         group_df = combined_df[combined_df["query"].isin(queries)]
 
         # Pivot the data for grouped bar plotting
-        pivot_df = group_df.pivot(
-            index="query", columns="database", values=metric_column
-        )
+        pivot_df = group_df.pivot(index="query", columns="database", values=metric_column)
+
+        # Sort the queries based on the sum of values across databases
+        pivot_df["sum"] = pivot_df.sum(axis=1)
+        pivot_df = pivot_df.sort_values(by="sum").drop(columns=["sum"])
 
         # Plot the grouped bar chart
         pivot_df.plot(kind="bar", figsize=(12, 6), width=0.8)
@@ -38,7 +40,6 @@ def plot_benchmark_results_by_group(parsed_results, metric_column, ylabel, title
         plt.tight_layout()
         plt.savefig(f"{title} - {group_name}.png")
         plt.show()
-
 
 def parse_benchmark_results(file_paths, columns_to_extract):
     """
@@ -79,12 +80,25 @@ if __name__ == "__main__":
         "mongo_sf10": root_path + r"\tpcds_mongodb_sf10.txt",
         "cassandra_sf10": root_path + r"\tpcds_cassandra_sf10.txt",
     }
+    file_paths_sf1_combined = {
+        "combined_sf1": root_path + r"\tpcds_combined_sf1.txt",
+        "combined_sf1_w1": root_path + r"\tpcds_combined_sf1_w1.txt",
+        "combined_sf1_w2": root_path + r"\tpcds_combined_sf1_w2.txt",
+    }
+    file_paths_sf10_combined = {
+        "combined_sf10": root_path + r"\tpcds_combined_sf10.txt",
+        "combined_sf10_w1": root_path + r"\tpcds_combined_sf10_w1.txt",
+        "combined_sf10_w2": root_path + r"\tpcds_combined_sf10_w2.txt",
+    }
 
     columns_to_extract = ["query", "processCpuTimeMean", "queryCpuTimeMean"]
 
     # Parse the files
     parsed_results_sf1 = parse_benchmark_results(file_paths_sf1, columns_to_extract)
     parsed_results_sf10 = parse_benchmark_results(file_paths_sf10, columns_to_extract)
+    parsed_results_sf1_combined = parse_benchmark_results(file_paths_sf1_combined, columns_to_extract)
+    #parsed_results_sf10_combined = parse_benchmark_results(file_paths_sf10_combined, columns_to_extract)
+
 
     query_groups = {
         "Lightweight": ["Q65", "Q51", "Q15", "Q30", "Q1"],
@@ -128,5 +142,23 @@ if __name__ == "__main__":
         metric_column="processCpuTimeMean",
         ylabel="Process CPU Time Mean",
         title="Process CPU Time Mean by Database (SF10)",
+        query_groups=query_groups,
+    )
+    # For combined SF1
+    # Plot results for Query CPU Time Mean grouped by query type
+    plot_benchmark_results_by_group(
+        parsed_results_sf1_combined,
+        metric_column="queryCpuTimeMean",
+        ylabel="Query CPU Time Mean",
+        title="Query CPU Time Mean by Database (Combined SF1)",
+        query_groups=query_groups,
+    )
+
+    # Plot results for Process CPU Time Mean grouped by query type
+    plot_benchmark_results_by_group(
+        parsed_results_sf1_combined,
+        metric_column="processCpuTimeMean",
+        ylabel="Process CPU Time Mean",
+        title="Process CPU Time Mean by Database (Combined SF1)",
         query_groups=query_groups,
     )
