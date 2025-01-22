@@ -8,6 +8,7 @@ def plot_benchmark_results_by_group(parsed_results, metric_column, ylabel, title
     """
     Plots benchmark results as grouped bar charts for each query group across databases.
     Also plots the sum of the metric for each query group across databases in a single figure.
+    Additionally, plots the total sum of all query groups for each database.
 
     Parameters:
     - parsed_results (dict): Dictionary with database names as keys and DataFrames as values.
@@ -83,6 +84,26 @@ def plot_benchmark_results_by_group(parsed_results, metric_column, ylabel, title
 
     # Save the plot in the 'plots' folder with a unique filename
     plot_filename = f"Total {metric_column} for Query Groups Across Databases - {scale_factor}.png" if scale_factor else f"Total {metric_column} for Query Groups Across Databases.png"
+    plot_path = os.path.join(plots_dir, plot_filename)
+    plt.savefig(plot_path)  # Save the plot BEFORE showing it
+    plt.show()
+
+    # Calculate the total sum of all query groups for each database
+    total_sums = {db: 0 for db in databases}
+    for group_name, sums in group_sums.items():
+        for db in databases:
+            total_sums[db] += sums[db]
+
+    # Plot the total sum of all query groups for each database
+    plt.figure(figsize=(8, 5))
+    plt.bar(total_sums.keys(), total_sums.values(), color="purple")
+    plt.xlabel("Database")
+    plt.ylabel(f"Total {ylabel}")
+    plt.title(f"Total {metric_column} for All Query Groups Across Databases - {scale_factor}" if scale_factor else f"Total {metric_column} for All Query Groups Across Databases")
+    plt.tight_layout()
+
+    # Save the plot in the 'plots' folder with a unique filename
+    plot_filename = f"Total {metric_column} for All Query Groups Across Databases - {scale_factor}.png" if scale_factor else f"Total {metric_column} for All Query Groups Across Databases.png"
     plot_path = os.path.join(plots_dir, plot_filename)
     plt.savefig(plot_path)  # Save the plot BEFORE showing it
     plt.show()
