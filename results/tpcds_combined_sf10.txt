@@ -1,0 +1,17 @@
+suite   query   wallTimeP50     wallTimeMean    wallTimeStd     processCpuTimeP50       processCpuTimeMean      processCpuTimeStd       queryCpuTimeP50 queryCpuTimeMean        queryCpuTimeStd status  error
+tpcds_combine_sf10      Q1      3730    4202    1092    22080   28440   13595   7531    7906    913     pass
+tpcds_combine_sf10      Q30     4061    4049    164     23700   23546   998    11117    10822   893     pass
+tpcds_combine_sf10      Q15     12387   12216   328     32190   32026   345    16980    17060   294     pass
+tpcds_combine_sf10      Q51     0       0       0       0       0       0      00       0       fail    Query exceeded per-node user memory limit of 204.80MB 
+tpcds_combine_sf10      Q65     30307   31448   2397    152860  157463  9802    61801   63666   3355    pass
+
+tpcds_combine_sf10      Q76     10757   11262   1165    21870   22426   3132   2567     2649    371     pass
+tpcds_combine_sf10      Q94     14475   14865   697     46690   47136   1655   19787    20261   1008    pass
+tpcds_combine_sf10      Q49     25218   25581   756     61910   62803   3858   29665    29850   681     pass
+tpcds_combine_sf10      Q35     25607   25544   869     62150   60950   2578   35599    35585   1240    pass
+tpcds_combine_sf10      Q77     32076   32283   1804    68990   72450   9732   30481    30679   974     pass
+
+tpcds_combine_sf10      Q21     103754  103486  1475    262810  268096  12713  130269   129393  1577    pass
+tpcds_combine_sf10      Q5      46020   43716   4873    115170  113570  4871    60140   59275   2957    pass
+tpcds_combine_sf10      Q78     76510   77929   2488    477390  481853  12260  163383   163720  649     pass
+tpcds_combine_sf10      Q39     111048  112155  3604    674580  671380  7029   369663   371717  3632    pass
