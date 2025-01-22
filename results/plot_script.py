@@ -4,7 +4,7 @@ import os
 import numpy as np
 
 
-def plot_benchmark_results_by_group(parsed_results, metric_column, ylabel, title, query_groups):
+def plot_benchmark_results_by_group(parsed_results, metric_column, ylabel, title, query_groups, scale_factor=None):
     """
     Plots benchmark results as grouped bar charts for each query group across databases.
     Also plots the sum of the metric for each query group across databases in a single figure.
@@ -15,6 +15,7 @@ def plot_benchmark_results_by_group(parsed_results, metric_column, ylabel, title
     - ylabel (str): Label for the y-axis.
     - title (str): Title of the plot.
     - query_groups (dict): A dictionary where keys are group names and values are lists of queries.
+    - scale_factor (str): The scale factor (e.g., "SF1", "SF10") to include in the filename.
     """
     # Create the 'plots' folder if it doesn't exist
     plots_dir = os.path.join(os.getcwd(), "plots")
@@ -49,9 +50,10 @@ def plot_benchmark_results_by_group(parsed_results, metric_column, ylabel, title
         plt.legend(title="Database")
         plt.tight_layout()
 
-        # Save the plot in the 'plots' folder
-        plot_path = os.path.join(plots_dir, f"{title} - {group_name}.png")
-        plt.savefig(plot_path)
+        # Save the plot in the 'plots' folder with a unique filename
+        plot_filename = f"{title} - {group_name} - {scale_factor}.png" if scale_factor else f"{title} - {group_name}.png"
+        plot_path = os.path.join(plots_dir, plot_filename)
+        plt.savefig(plot_path)  # Save the plot BEFORE showing it
         plt.show()
 
         # Calculate the sum of the metric for each database in the current group
@@ -74,14 +76,15 @@ def plot_benchmark_results_by_group(parsed_results, metric_column, ylabel, title
     # Add labels, title, and legend
     plt.xlabel("Database")
     plt.ylabel(f"Total {ylabel}")
-    plt.title(f"Total {metric_column} for Query Groups Across Databases")
+    plt.title(f"Total {metric_column} for Query Groups Across Databases - {scale_factor}" if scale_factor else f"Total {metric_column} for Query Groups Across Databases")
     plt.xticks(x + width, databases)
     plt.legend(title="Query Group")
     plt.tight_layout()
 
-    # Save the plot in the 'plots' folder
-    plot_path = os.path.join(plots_dir, f"Total {metric_column} for Query Groups Across Databases.png")
-    plt.savefig(plot_path)
+    # Save the plot in the 'plots' folder with a unique filename
+    plot_filename = f"Total {metric_column} for Query Groups Across Databases - {scale_factor}.png" if scale_factor else f"Total {metric_column} for Query Groups Across Databases.png"
+    plot_path = os.path.join(plots_dir, plot_filename)
+    plt.savefig(plot_path)  # Save the plot BEFORE showing it
     plt.show()
 
 
@@ -142,7 +145,7 @@ if __name__ == "__main__":
     parsed_results_sf1 = parse_benchmark_results(file_paths_sf1, columns_to_extract)
     parsed_results_sf10 = parse_benchmark_results(file_paths_sf10, columns_to_extract)
     parsed_results_sf1_combined = parse_benchmark_results(file_paths_sf1_combined, columns_to_extract)
-    #parsed_results_sf10_combined = parse_benchmark_results(file_paths_sf10_combined, columns_to_extract)
+    parsed_results_sf10_combined = parse_benchmark_results(file_paths_sf10_combined, columns_to_extract)
 
 
     query_groups = {
@@ -159,8 +162,9 @@ if __name__ == "__main__":
         parsed_results_sf1,
         metric_column="wallTimeMean",
         ylabel="Time(ms)",
-        title="Wall Time Mean for SF1",
+        title="Wall Time Mean",
         query_groups=query_groups,
+        scale_factor="SF1",  # Add scale factor to filename
     )
 
     # For SF10
@@ -169,8 +173,9 @@ if __name__ == "__main__":
         parsed_results_sf10,
         metric_column="wallTimeMean",
         ylabel="Time(ms)",
-        title="Wall Time Mean for SF10",
+        title="Wall Time Mean",
         query_groups=query_groups,
+        scale_factor="SF10",  # Add scale factor to filename
     )
 
     # For combined SF1
@@ -179,6 +184,18 @@ if __name__ == "__main__":
         parsed_results_sf1_combined,
         metric_column="wallTimeMean",
         ylabel="Time(ms)",
-        title="Wall Time Mean for Combined SF1",
+        title="Wall Time Mean",
         query_groups=query_groups,
+        scale_factor="Combined SF1",  # Add scale factor to filename
+    )
+
+    # For combined SF10
+    # Plot results for walLTimeMean grouped by query type
+    plot_benchmark_results_by_group(
+        parsed_results_sf10_combined,
+        metric_column="wallTimeMean",
+        ylabel="Time(ms)",
+        title="Wall Time Mean",
+        query_groups=query_groups,
+        scale_factor="Combined SF10",  # Add scale factor to filename
     )
