@@ -3,18 +3,23 @@
 ## Overview
 [PrestoDB](https://prestodb.io/) is a distributed SQL query engine designed to handle large-scale data analysis by querying data across heterogeneous data sources. This project aims to benchmark the performance of PrestoDB across a variety of query types and data locations, using three different underlying data storage systems: **PostgreSQL**, **MongoDB**, and **Cassandra**.
 
-To create a highly portable, cloud-based environment, **Docker containers** will be employed to deploy PrestoDB and each data storage system. These containers will operate on an **overlay virtual network** spanning multiple hosts, simulating distributed deployments. By leveraging Docker, the project ensures scalability, easy orchestration, and cloud-native compatibility, making it straightforward to replicate and extend the benchmarking setup in various environments, including private or public cloud platforms.
+To create a highly portable, cloud-based environment, **Docker containers** will be employed to deploy PrestoDB and each data storage system. These containers will operate on an **overlay virtual network** spanning multiple hosts which are nodes of a docker swarm, simulating distributed deployments. By leveraging Docker, the project ensures scalability, easy orchestration, and cloud-native compatibility, making it straightforward to replicate and extend the benchmarking setup in various environments, including private or public cloud platforms.
 
 This project not only benchmarks PrestoDB's capabilities but also provides a practical, cloud-ready framework to evaluate distributed SQL query engines in a heterogeneous data ecosystem.
 
-## Bookmarks
+## Table of Contents
 
- - Docker installation
- - TPCDS
- - Loading TPCDS-Data
- - Benchmarks
- - Figures
-
+ - [Configuration set up](#Configurationsetup)
+	 - [Docker installation](#Dockerinstallation)
+	 - [Docker Swarm](#Swarm)
+	 - [Overlay Network](#OverlayNetwork) 
+	 - [Installing and configuring the Presto Docker container](#InstallingandconfiguringthePrestoDockercontainer)
+	 - [Database Images](#DatabaseImages)
+	 
+ - [TPCDS Data Loading](#TPCDSDataLoading)
+ - [Benchmarks](#Benchmarks)
+ - [Figures](#Figures)
+ 
 ## Configuration set up
 
 ### 🐳Docker installation
@@ -77,8 +82,38 @@ The output should be similar to the following, showing that the service is activ
 
 Installing Docker now gives you not just the Docker service (daemon) but also the `docker` command line utility, or the Docker client.
 
+### Docker Swarm
+_________________
+To initialize docker swarm on our main node where prestodb will be running we run the following command : 
+
+    docker swarm init --advertise-addr 2001:648:2ffe:501:cc00:13ff:fea7:ddf9
+    
+the output of the command will be something like this:
+```console
+Swarm initialized: current node (bvz81updecsj6wjz393c09vti) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-3ds6329crye714vjq046ycvv8uejb2khr60j63eqorrj25dkre-2jorol2ys56auw6ndbuvmeh64  [2001:648:2ffe:501:cc00:13ff:fea7:ddf9]:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+```
+Now we can add more nodes to our swarm. Specifically, we added the node that will host the postgresql database container and the node that will host the cassandra database container using on both machines:
+
+    docker swarm join --token <token-id> [2001:648:2ffe:501:cc00:13ff:fea7:ddf9]:2377
+### Overlay Network
+___________
+Now we will create a docker overlay network named "overnet" using the following command:
+
+    docker network create -d overlay overnet
+  
+This will be useful later on so we can achieve communication between the presto and databases using the VLAN network abstraction of overlay docker network.
+
 *From now on we assume you have created a project directory on your main node(host) in which the `docker-compose.yaml` file will run and the necessary containers with their necessary configuration files will be deployed to every other node.* 
-###  Installing and configuring the Presto Docker container  
+
+###  Installing and configuring the Presto Docker container 
+___________________________
 
  1. Download the latest non-edge Presto container from [Presto on DockerHub](https://hub.docker.com/r/prestodb/presto/tags). Run the following command:
     
@@ -86,7 +121,7 @@ Installing Docker now gives you not just the Docker service (daemon) but also th
     
     Downloading the container may take a few minutes. When the download completes, go on to the next step.
     
-2.  On your repository, create a file named `./coordinator/config.properties` containing the following text:
+2.  On your repository, create a file named `./docker-presto-integration/coordinator/config.properties` containing the following text:
 
 	    coordinator=true
 	    node-scheduler.include-coordinator=true
@@ -97,7 +132,7 @@ Installing Docker now gives you not just the Docker service (daemon) but also th
 	    discovery-server.enabled=true
 	    discovery.uri=http://localhost:8080
     
-3.  On your repository, create a file named `./coordinator/jvm.config` containing the following text:
+3.  On your repository, create a file named `./docker-presto-integration/coordinator/jvm.config` containing the following text:
 
 	    -server
 	    # Change this to 76-85% of the total memory of your node 
@@ -120,15 +155,22 @@ Installing Docker now gives you not just the Docker service (daemon) but also th
 		# Change this to the number of your cpu cores of your node 
 		-XX:GCLockerRetryAllocationCount=4
 
+## TPCDS Data Loading
+We performed ExtractTransferLoad(ETL). We used the TPC-DS connector by mounting the catalog properties file in `docker-presto-integration/config/catalog` into `etc/catalog/tpcds.properties` with the following contents:
 
-### Database environment
---------------------------------------------------------------------
+    connector.name=tpcds
 
+ We utilized the `CREATE TABLE AS SELECT` query provided by presto create and populate the tables.
+ 
+We loaded the data using the following command for postgresql, mongodb and cassandra for sf1 and sf10.
 
-### Connect Presto with DBs
------------------------------------------------------------------------
+    docker exec -it presto presto-cli --server presto:8080 --catalog <db_name> --schema <sfx> --file /opt/presto-server/etc/tpcds_to_<dbname>.sql
+
+## Benchmarking
+For the benchmarking 
 
 
 ## Figures 
 The scripts for generating figures are located in the `./results` directory with the .txt benchmark files generated by the **presto-benchmark-driver**, while the generated figures are stored in `./plots`. 
+
 
