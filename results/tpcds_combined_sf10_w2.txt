@@ -1,19 +1,17 @@
 suite   query   wallTimeP50     wallTimeMean    wallTimeStd     processCpuTimeP50       processCpuTimeMean      processCpuTimeStd       queryCpuTimeP50 queryCpuTimeMean        queryCpuTimeStd status  error
-tpcds_combine_sf10      Q1      3568    3993    1054    21213   27152   13127   7228    7721    868     pass
-tpcds_combine_sf10      Q30     3944    3910    158     22523   22441   968     10665   10344   874     pass
-tpcds_combine_sf10      Q15     11966   11654   317     30625   31269   332     16577   16578   286     pass
+tpcds_combine_sf10      Q1      2852    3283    946     18668   23041   10546   5829    6730    762     pass
+tpcds_combine_sf10      Q30     3259    3110    135     19836   20111   799     9195    8834    702     pass
+tpcds_combine_sf10      Q15     10694   10275   283     27685   27332   283     14037   13553   234     pass
 tpcds_combine_sf10      Q51     34993   34544   1141    191670  192910  12187   66509   66674   295     pass
-tpcds_combine_sf10      Q65     28832   29992   2330    147785  149898  9451    59170   60570   3283    pass
+tpcds_combine_sf10      Q65     26204   24691   1959    127972  128023  8068    52516   52143   2853    pass
 
-tpcds_combine_sf10      Q76     10527   10725   1110    21206   21875   2986    2502    2537    364     pass
-tpcds_combine_sf10      Q94     13833   14292   681     44817   44832   1603    18808   19791   961     pass
-tpcds_combine_sf10      Q49     24313   24663   732     59036   61472   3705    28248   28580   667     pass
-tpcds_combine_sf10      Q35     25042   24814   840     59877   58115   2479    34135   34258   1188    pass
-tpcds_combine_sf10      Q77     30626   31181   1767    66759   69668   9408    28972   29818   949     pass
+tpcds_combine_sf10      Q76     9380    9744    959     18090   18503   2633    2190    2084    307     pass
+tpcds_combine_sf10      Q94     11287   12079   579     36700   39510   1416    15356   16114   862     pass
+tpcds_combine_sf10      Q49     21778   22263   644     52565   48894   3129    23356   23595   565     pass
+tpcds_combine_sf10      Q35     20829   20269   688     53420   52623   2063    29914   27231   1061    pass
+tpcds_combine_sf10      Q77     25775   25740   1552    59066   62138   7530    23343   26137   810     pass
 
-tpcds_combine_sf10      Q21     100794  100672  1405    253371  254796  12132   125566  123446  1529    pass
-tpcds_combine_sf10      Q5      44298   42323   4646    110868  109119  4732    57800   57398   2828    pass
-tpcds_combine_sf10      Q78     72800   74209   2404    455802  467524  11700   155261  156892  635     pass
-tpcds_combine_sf10      Q39     107222  107996  3530    642123  646708  6816    354186  361466  3539    pass
-
-
+tpcds_combine_sf10      Q21     83368   87748   1270    214618  211615  10545   105614  107403  1325    pass
+tpcds_combine_sf10      Q5      36592   34975   3997    93686   89521   4056    47991   49182   2506    pass
+tpcds_combine_sf10      Q78     67006   66529   1990    394082  373535  9849    137954  129467  547     pass
+tpcds_combine_sf10      Q39     89293   93741   2898    557754  563365  5726    309491  315649  2791    pass
