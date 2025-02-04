@@ -12,7 +12,7 @@ This project not only benchmarks PrestoDB's capabilities but also provides a pra
  - [Configuration set up](#Configurationsetup)
 	 - [Docker installation](#Dockerinstallation)
 	 - [Docker Swarm](#Swarm)
-	 - [Overlay Network](#OverlayNetwork) 
+	 - [Overlay Network](#overlaynetwork) 
 	 - [Installing and configuring the Presto Docker container](#InstallingandconfiguringthePrestoDockercontainer)
 	 - [Database Images](#DatabaseImages)
 	 
