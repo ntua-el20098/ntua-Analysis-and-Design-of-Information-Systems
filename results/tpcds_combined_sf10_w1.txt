@@ -2,7 +2,7 @@ suite   query   wallTimeP50     wallTimeMean    wallTimeStd     processCpuTimeP5
 tpcds_combine_sf10      Q1      2996    3395    973     19476   23561   10877   6110    6869    792     pass
 tpcds_combine_sf10      Q30     3367    3269    141     20387   20695   833     9508    9029    724     pass
 tpcds_combine_sf10      Q15     11065   10492   290     28714   28428   289     14337   14008   242     pass
-tpcds_combine_sf10      Q51     0       0       0       0       0       0       0       0       fail    Query exceeded per-node user memory limit of 204.80MB
+tpcds_combine_sf10      Q51     0       0       0       0       0       0       0       0       fail
 tpcds_combine_sf10      Q65     27015   25664   2046    131121  131609  8376    53708   54541   2914    pass
 
 tpcds_combine_sf10      Q76     9622    9952    986     18913   19183   2758    2248    2169    318     pass
