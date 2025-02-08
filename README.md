@@ -1,9 +1,9 @@
 # Distributed Execution of SQL Queries using PrestoDB (Information Systems - NTUA)
 
 ## Overview
-[PrestoDB](https://prestodb.io/) is a distributed SQL query engine designed to handle large-scale data analysis by querying data across heterogeneous data sources. This project aims to benchmark the performance of PrestoDB across a variety of query types and data locations, using three different underlying data storage systems: **PostgreSQL**, **MongoDB**, and **Cassandra**.
+[PrestoDB](https://prestodb.io/) is a distributed SQL query engine designed to handle large-scale data analysis by querying data across heterogeneous data sources. This project aims to benchmark the performance of **PrestoDB** across a variety of query types and data locations, using three different underlying data storage systems: **PostgreSQL**, **MongoDB** and **Cassandra**.
 
-To create a highly portable, cloud-based environment, **Docker containers** will be employed to deploy PrestoDB and each data storage system. These containers will operate on an **overlay virtual network** spanning multiple hosts which are nodes of a docker swarm, simulating distributed deployments. By leveraging Docker, the project ensures scalability, easy orchestration, and cloud-native compatibility, making it straightforward to replicate and extend the benchmarking setup in various environments, including private or public cloud platforms.
+To create a highly portable, cloud-based environment, **Docker containers** will be employed to deploy PrestoDB and each data storage system. These containers will operate on an **overlay virtual network** spanning multiple hosts which are nodes of a docker swarm, simulating distributed deployments of services. By leveraging Docker, the project ensures scalability, easy orchestration, and cloud-native compatibility, making it straightforward to replicate and extend the benchmarking setup in various environments, including private or public cloud platforms.
 
 This project not only benchmarks PrestoDB's capabilities but also provides a practical, cloud-ready framework to evaluate distributed SQL query engines in a heterogeneous data ecosystem.
 
@@ -13,9 +13,9 @@ This project not only benchmarks PrestoDB's capabilities but also provides a pra
 	 - [Docker installation](#Docker-installation)
 	 - [Docker Swarm](#Docker-Swarm)
 	 - [Overlay Network](#Overlay-Network) 
-	 - [Installing and configuring the Presto Docker container](#Installing-and-configuring-the-Presto-Docker-container)
+	 - [Installing and configuring the Presto Docker container](#Presto-Docker-container)
 	 
- - [TPCDS Data Loading](#TPCDS-Data-Loading)
+ - [TPC-DS Data Loading](#TPC-DS-Data-Loading)
  - [Benchmarks](#Benchmarks)
  - [Figures](#Figures)
  
@@ -111,7 +111,7 @@ This will be useful later on so we can achieve communication between the presto 
 
 *From now on we assume you have created a project directory on your main node(host) in which the `docker-compose.yaml` file will run and the necessary containers with their necessary configuration files will be deployed to every other node.* 
 
-###  Installing and configuring the Presto Docker container 
+###  Presto Docker container 
 ___________________________
 
  1. Download the latest non-edge Presto container from [Presto on DockerHub](https://hub.docker.com/r/prestodb/presto/tags). Run the following command:
@@ -153,7 +153,6 @@ ___________________________
 	    -XX:+UseAESCTRIntrinsics
 
 ### Connect Databases to PrestoDB
-	
 To add PostgreSQL, MongoDB and  Cassandra to PrestoDB catalog we mount the directory ./docker-presto-integration/config/catalog into /opt/presto-server/etc/catalog of the presto container of coordinator
 In detail this directory contains the following files :
 postgresql.properties :
@@ -174,7 +173,10 @@ mongodb.properties :
     connector.name=mongodb
     mongodb.seeds=presto_mongodb:27017
 
-## TPCDS Data Loading
+![dockernetwork drawio](https://github.com/user-attachments/assets/211616da-b853-4bf7-9321-1e9bfaf4e154)
+
+
+## TPC-DS Data Loading
 We performed ExtractTransferLoad(ETL). We used the TPC-DS connector by mounting the catalog properties file in `docker-presto-integration/config/catalog` into `etc/catalog/tpcds.properties` with the following contents:
 
     connector.name=tpcds
@@ -186,11 +188,26 @@ We loaded the data using the following command for postgresql, mongodb and cassa
     docker exec -it presto presto-cli --server presto:8080 --catalog <db_name> --schema <sfx> --file /opt/presto-server/etc/tpcds_to_<dbname>.sql
 
 ## Benchmarking
-For the benchmarking 
+For the benchmarking the [benchmark driver](https://prestodb.io/docs/current/installation/benchmark-driver.html) provided by Presto was used. Following the steps in the documentation of presto version 0.290 we downloaded the jar file in the directory `docker-presto-integration/coordinator` and mounted it into the `/opt/benchmark-driver/presto-benchmark-driver`  of our presto-coordinator container running on the main node of our swarm. Specifically, 
 
+**suite.json**
+
+    {
+      "tpcds_<dbname>_sf<size>": {
+        "query": ["Q.*"],
+        "schema": ["<schema_of_db_used>"],
+        "session": {}
+      }
+      
+    }
+
+Command:
+
+ `./presto-benchmark-driver --catalog <catalog> --runs 3 --warm 2 \ --suite <tpcds_<dbname>_sf<size>>`
 
 ## Figures 
 The scripts for generating figures are located in the `./results` directory with the .txt benchmark files generated by the **presto-benchmark-driver**, while the generated figures are stored in `./plots`. 
+
 
 
 
