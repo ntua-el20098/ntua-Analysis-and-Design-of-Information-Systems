@@ -9,13 +9,13 @@ This project not only benchmarks PrestoDB's capabilities but also provides a pra
 
 ## Table of Contents
 
- - [Configuration set up](#Configurationsetup)
-	 - [Docker installation](#Dockerinstallation)
-	 - [Docker Swarm](#Swarm)
-	 - [Overlay Network](#OverlayNetwork) 
-	 - [Installing and configuring the Presto Docker container](#InstallingandconfiguringthePrestoDockercontainer)
+ - [Configuration set up](#Configuration-set-up)
+	 - [Docker installation](#Docker-installation)
+	 - [Docker Swarm](#Docker-Swarm)
+	 - [Overlay Network](#Overlay-Network) 
+	 - [Installing and configuring the Presto Docker container](#Installing-and-configuring-the-Presto-Docker-container)
 	 
- - [TPCDS Data Loading](#TPCDSDataLoading)
+ - [TPCDS Data Loading](#TPCDS-Data-Loading)
  - [Benchmarks](#Benchmarks)
  - [Figures](#Figures)
  
