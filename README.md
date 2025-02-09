@@ -266,6 +266,7 @@ For the benchmarking the [benchmark driver](https://prestodb.io/docs/current/ins
     }
 
 **Command**
+
  `./presto-benchmark-driver --catalog <catalog> --runs 3 --warm 2 \ --suite <tpcds_<dbname>_sf<size>>`
 
 ## Figures 
