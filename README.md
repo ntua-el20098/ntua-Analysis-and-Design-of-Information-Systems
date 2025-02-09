@@ -18,7 +18,7 @@ This project not only benchmarks PrestoDB's capabilities but also provides a pra
 	 - [Connect Databases to PrestoDB](#Connect-Databases-to-PrestoDB)
 	 - [Workers](#Workers)
 	 - [Docker-Compose](#Docker-Compose)
-	 - [Summary and visualization of our configuration](#Summary-and-visualization-of-our-configuration)
+	 - [Summary & Visualization of our configuration](#Summary-&-Visualization-of-our-configuration)
  - [TPC-DS Data Loading](#TPC-DS-Data-Loading)
  - [Benchmarking](#Benchmarking)
  - [Figures](#Figures)
