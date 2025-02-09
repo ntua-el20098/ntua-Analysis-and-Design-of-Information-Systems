@@ -2,7 +2,7 @@
 # Distributed Execution of SQL Queries using PrestoDB (Information Systems - NTUA)
 
 ## Overview
-[PrestoDB](https://prestodb.io/) is a distributed SQL query engine designed to handle large-scale data analysis by querying data across heterogeneous data sources. This project aims to benchmark the performance of **PrestoDB** across a <ins>different query types, data locations and number of presto workers</ins> in our configuration, using three different underlying data storage systems: **PostgreSQL**, **MongoDB** and **Cassandra**. 
+[PrestoDB](https://prestodb.io/) is a distributed SQL query engine designed to handle large-scale data analysis by querying data across heterogeneous data sources. This project aims to benchmark the performance of **PrestoDB** across a <ins>different query types, data locations and numbers of presto workers</ins> in our configuration, using three different underlying data storage systems: **PostgreSQL**, **MongoDB** and **Cassandra**. 
 
 To create a highly portable, cloud-based environment, **Docker containers** will be employed to deploy PrestoDB and each data storage system. These containers will operate on an **overlay virtual network** spanning multiple hosts which are nodes of a docker swarm, simulating distributed deployments of services. By leveraging Docker, the project ensures scalability, easy orchestration, and cloud-native compatibility, making it straightforward to replicate and extend the benchmarking setup in various environments, including private or public cloud platforms.
 
@@ -222,7 +222,7 @@ As mentioned before we have to test our distributed query engine with different 
 	node.id=worker_<worker_number>
 	node.data-dir=/var/lib/presto/data
 
-An important detail is that in any configuration of workers tested **one of the workers will always be the coordinator Presto container** which is configured to work both as coordinator and worker e.g. For three active workers we will have the PrestoDB coordinator and 2 more Presto container with the files of this section mounted into their appropriate directories.
+An important detail is that in any configuration of workers tested **one of the workers will always be the coordinator Presto container** which is configured to work both as coordinator and worker e.g. For three active workers we will have the PrestoDB coordinator and two more Presto containers with the files of this section mounted into their appropriate directories.
 
 ### Docker-Compose
 ----------------------------------
