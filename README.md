@@ -225,6 +225,7 @@ As mentioned before we have to test our distributed query engine with different 
 An important detail is that in any configuration of workers tested **one of the workers will always be the coordinator Presto container** which is configured to work both as coordinator and worker e.g. For three active workers we will have the PrestoDB coordinator and 2 more Presto container with the files of this section mounted into their appropriate directories.
 
 ### Docker-Compose
+----------------------------------
 After successfully completing the previous steps the docker-compose.yaml in the `./docker-presto-integration/` should deploy successfully the Presto coordinator, all the databases and the Presto workers needed(based on our Benchmarking approach). To deploy run : 
 
     docker stack deploy -c docker-compose.yaml presto 
@@ -232,6 +233,7 @@ After successfully completing the previous steps the docker-compose.yaml in the 
  on the node 1 (main node of our system).
 
 ### Summary and Visualization of our configuration
+---------------------------------------------
 On **node 1 we will deploy MongoDB and PrestoDB coordinator**, also acting as worker, on **node 2 we will deploy the PostgreSQL  database and node 3 the Cassandra database**. A visualization of the physical topology of our system is shown below: 
 ![network diagram drawio](https://github.com/user-attachments/assets/1539f892-1b88-4ed8-8449-74573d9f564b)
 
