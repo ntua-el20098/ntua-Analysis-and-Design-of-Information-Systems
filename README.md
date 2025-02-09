@@ -18,7 +18,7 @@ This project not only benchmarks PrestoDB's capabilities but also provides a pra
 	 - [Connect Databases to PrestoDB](#Connect-Databases-to-PrestoDB)
 	 - [Workers](#Workers)
 	 - [Docker-Compose](#Docker-Compose)
-	 - [Summary & Visualization of our configuration](#Summary&Visualization-of-our-configuration)
+	 - [Summary and Visualization of our configuration](#Summary-and-Visualization-of-our-configuration)
  - [TPC-DS Data Loading](#TPC-DS-Data-Loading)
  - [Benchmarking](#Benchmarking)
  - [Figures](#Figures)
@@ -231,7 +231,7 @@ After successfully completing the previous steps the docker-compose.yaml in the 
     
  on the node 1 (main node of our system).
 
-### Summary & Visualization of our configuration
+### Summary and Visualization of our configuration
 On **node 1 we will deploy MongoDB and PrestoDB coordinator**, also acting as worker, on **node 2 we will deploy the PostgreSQL  database and node 3 the Cassandra database**. A visualization of the physical topology of our system is shown below: 
 ![network diagram drawio](https://github.com/user-attachments/assets/1539f892-1b88-4ed8-8449-74573d9f564b)
 
